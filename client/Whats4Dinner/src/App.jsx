@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import { fetchTestMessage } from './services/api'
 
 function App() {
-  const [meal, setMeal] = useState("");
-  const [meals, setMeals] = useState([]);
+  const [meal, setMeal] = useState("");       // State to hold the current meal input by the user
+  const [meals, setMeals] = useState([]);     // State to hold the list of meals added by the user
+  const [message, setMessage] = useState(""); // State to hold the test message from the API
 
   // Start fetching the test message when the component mounts
   useEffect(() => {
@@ -22,15 +23,15 @@ function App() {
 
   return (
     <>
-      <div >
+      <div>
         <h1>Whats4Dinner?</h1>
 
-        <input>
+        <input
           type="text"
           placeholder="Enter a meal"
           value={meal}
           onChange={(e) => setMeal(e.target.value)}
-        </input>
+        />
         <button onClick={addMeal}>Add Meal</button>
 
         <h2>Recent Meals</h2>
