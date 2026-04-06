@@ -3,8 +3,8 @@ import './App.css'
 import { fetchTestMessage } from './services/api'
 
 import MealForm from './components/MealForm.jsx';
-import MealList from './components/MealList.jsx/index.js';
-import RecommendationDisplay from './components/RecommendDisplay.jsx/index.js';
+import MealList from './components/MealList.jsx';
+import RecommendationDisplay from './components/RecommendDisplay.jsx';
 
 function App() {
   const [meal, setMeal] = useState("");       // State to hold the current meal input by the user
