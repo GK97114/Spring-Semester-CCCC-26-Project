@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react'
 import './App.css'
 import { fetchTestMessage } from './services/api'
 
-import MealForm from './components/MealForm';
-import MealList from './components/MealList';
-import RecommendationDisplay from './components/RecommendDisplay';
+import MealForm from './components/MealForm.jsx';
+import MealList from './components/MealList.jsx/index.js';
+import RecommendationDisplay from './components/RecommendDisplay.jsx/index.js';
 
 function App() {
   const [meal, setMeal] = useState("");       // State to hold the current meal input by the user
