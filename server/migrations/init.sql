@@ -12,3 +12,11 @@ CREATE TABLE meals (
     cuisine TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE favorite_meals (
+    id UUID PRIMARY KEY,
+    user_id UUID NOT NULL,
+    meal_id UUID NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(user_id, meal_id)
+);
