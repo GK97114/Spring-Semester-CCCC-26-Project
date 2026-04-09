@@ -1,18 +1,14 @@
 import express from "express";
 import pool from "../db.js";
 import { v4 as uuidv4 } from "uuid";
+import { requireUser } from "../middleware/auth.js";
 
 const router = express.Router();
 
 // GET /api/meals -> get recent meals for the user
-router.get("/", async (req, res) => {
+router.get("/", requireUser, async (req, res) => {
     try {
-        const userId = req.cookies.user_id;
-
-        // If no user ID cookie, return 401 Unauthorized
-        if (!userId) {
-            return res.status(401).json({ error: "Unauthorized: No user session" });
-        }
+        const userId = req.userId;
 
         const result = await pool.query(
             `SELECT * FROM meals
@@ -31,15 +27,10 @@ router.get("/", async (req, res) => {
 });
 
 // POST /api/meals -> add a new meal for the user
-router.post("/", async (req, res) => {
+router.post("/", requireUser, async (req, res) => {
     try {
-        const userId = req.cookies.user_id;
+        const userId = req.userId;
         const { name, cuisine } = req.body;
-
-        // If no user ID cookie, return 401 Unauthorized
-        if (!userId) {
-            return res.status(401).json({ error: "Unauthorized: No user session" });
-        }
 
         // Validate required fields
         if (!name) {
@@ -68,15 +59,10 @@ router.post("/", async (req, res) => {
 });
 
 // DELETE /api/meals/:id -> delete a meal by ID
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", requireUser, async (req, res) => {
     try {
-        const userId = req.cookies.user_id;
+        const userId = req.userId;
         const { id } = req.params;
-
-        // If no user ID cookie, return 401 Unauthorized
-        if (!userId) {
-            return res.status(401).json({ error: "Unauthorized: No user session" });
-        }
 
         await pool.query(
             `DELETE FROM meals
@@ -93,16 +79,11 @@ router.delete("/:id", async (req, res) => {
 });
 
 // PUT /api/meals/:id -> update a meal by ID
-router.put("/:id", async (req, res) => {
+router.put("/:id", requireUser, async (req, res) => {
     try {
-        const userId = req.cookies.user_id;
+        const userId = req.userId;
         const { id } = req.params;
         const { location, name, cuisine, rating, notes } = req.body;
-
-        // If no user ID cookie, return 401 Unauthorized
-        if (!userId) {
-            return res.status(401).json({ error: "Unauthorized: No user session" });
-        }
 
         // Validate required fields
         if (!name) {
