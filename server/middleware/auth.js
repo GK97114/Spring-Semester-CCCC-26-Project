@@ -1,8 +1,8 @@
 /**
  * Middleware to check if a user is authenticated based on the presence of a user_id cookie.
- * @param {import("express").Request} req 
- * @param {import("express").Response} res 
- * @param {import("express").NextFunction} next 
+ * @param {import("express").Request} req is the Express request object
+ * @param {import("express").Response} res is the Express response object
+ * @param {import("express").NextFunction} next is the Express next function to pass control to the next middleware
  * @returns 
  */
 export function requireUser(req, res, next) {
