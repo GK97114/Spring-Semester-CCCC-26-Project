@@ -1,5 +1,9 @@
 /**
  * Middleware to check if a user is authenticated based on the presence of a user_id cookie.
+ * @param {import("express").Request} req 
+ * @param {import("express").Response} res 
+ * @param {import("express").NextFunction} next 
+ * @returns 
  */
 export function requireUser(req, res, next) {
     const userId = req.cookies.user_id;

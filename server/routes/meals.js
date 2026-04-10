@@ -2,6 +2,7 @@ import express from "express";
 import pool from "../db.js";
 import { v4 as uuidv4 } from "uuid";
 import { requireUser } from "../middleware/auth.js";
+import { validateMealInput } from "../utils/validMealsInput.js";
 
 const router = express.Router();
 
@@ -33,12 +34,9 @@ router.post("/", requireUser, async (req, res) => {
         const { name, cuisine } = req.body;
 
         // Validate required fields
-        if (!name) {
-            return res.status(400).json({ error: "Bad Request: Name is required" });
-        }
-
-        if (!cuisine) {
-            return res.status(400).json({ error: "Bad Request: Cuisine is required" });
+        const error = validateMealInput({ name, cuisine });
+        if (error) {
+            return res.status(400).json({ error: `Bad Request: ${error}` });
         }
 
         // Generate a new UUID for the meal
@@ -86,12 +84,9 @@ router.put("/:id", requireUser, async (req, res) => {
         const { location, name, cuisine, rating, notes } = req.body;
 
         // Validate required fields
-        if (!name) {
-            return res.status(400).json({ error: "Bad Request: Name is required" });
-        }
-
-        if (!cuisine) {
-            return res.status(400).json({ error: "Bad Request: Cuisine is required" });
+        const error = validateMealInput({ name, cuisine });
+        if (error) {
+            return res.status(400).json({ error: `Bad Request: ${error}` });
         }
 
         await pool.query(
