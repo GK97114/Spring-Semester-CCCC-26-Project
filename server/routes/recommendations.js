@@ -70,11 +70,47 @@ router.get("/", requireUser, async (req, res) => {
             }
         }
 
-        // compare user cuisine types to master list
+        // Ensure all cuisines from master list are represented in the counts, even if they are 0
+        Object.values(CUISINES_MASTER_LIST).forEach(cuisine => {
+            const cuisineKey = cuisine.toLowerCase();
+            if (!validCuisineCounts[cuisineKey]) {
+                validCuisineCounts[cuisineKey] = 0;
+            }
+        });
 
         // Weight cuisines based on frequency
+        // More frequent cuisines get lower weight, less frequent cuisines get higher weight to encourage variety
+        // Cuisine not in user's history gets highest weight to encourage trying new cuisines
+        const maxCount = Math.max(...Object.values(validCuisineCounts));
+
+        const weightedCuisines = Object.entries(validCuisineCounts).map(([cuisine, count]) => ({
+            cuisine,
+            weight: maxCount - count
+        }));
 
         // Return weighted list of cuisines for recommendations and return top 3 cuisines for recommendations
+        // Cuisine that is common will have lower weight 
+        // Cuisine that is less common will have higher weight to encourage variety in recommendations
+        const sortedCuisines = weightedCuisines.sort((a, b) => b.weight - a.weight);
+
+        const recommendations = sortedCuisines
+            .filter(item => item.cuisine !== "other")
+            .slice(0, 3)
+            .map(({ cuisine }) => {
+                let reason = "";
+                const count = validCuisineCounts[cuisine];
+
+                // Provide reasoning for recommendations based on user's meal history
+                if (count === 0) {
+                    reason = "You haven't tried this cuisine yet, give it a try!";
+                } else if (count === 1) {
+                    reason = "You've only had this cuisine recently";
+                } else {
+                    reason = "You've had this cuisine less than the others";
+                }
+                
+                return { cuisine, reason };
+        });
 
     } catch (error) {
         console.error("Error fetching recommendations:", error);
