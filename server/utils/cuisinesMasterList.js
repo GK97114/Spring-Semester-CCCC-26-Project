@@ -1,0 +1,16 @@
+export const CUISINES_MASTER_LIST = {
+    AMERICAN: "American",
+    BAREBEQUE: "Barbeque",
+    CHINESE: "Chinese",
+    FISH: "Fish",
+    GERMAN: "German",
+    INDIAN: "Indian",
+    ITALIAN: "Italian",
+    JAPANESE: "Japanese",
+    MEDITERRANEAN: "Mediterranean",
+    MEXICAN: "Mexican",
+    OTHER: "Other",
+    SEAFOOD: "Seafood",
+    TEXMEX: "Tex-Mex",
+    THAI: "Thai",
+};
