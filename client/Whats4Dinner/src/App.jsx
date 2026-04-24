@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, use } from 'react'
 import './App.css'
-import { fetchTestMessage } from './services/api'
 
+import { initSession } from './services/api.js';
 import MealForm from './components/MealForm.jsx';
 import MealList from './components/MealList.jsx';
 import RecommendationDisplay from './components/RecommendDisplay.jsx';
@@ -11,20 +11,13 @@ function App() {
   const [meals, setMeals] = useState([]);     // State to hold the list of meals added by the user
   const [message, setMessage] = useState(""); // State to hold the test message from the API
 
-  // Start fetching the test message when the component mounts
-  // Remove this useEffect when you no longer need the test message
-  useEffect(() => {
-    fetchTestMessage().then(data => setMessage(data.message));
-  }, []);
-
-  // Function to add a meal to the list
-  const addMeal = () => {
-    if (!meal) return;  // Do not add empty meals
-
-    // Add the new meal to the list of meals
-    setMeals([...meals, meal]);
-    setMeal("");
-  }
+// On component mount, initialize the user session by calling the API.
+// This will check if the user is already logged in and set up the session accordingly.
+useEffect(() => {
+  initSession().catch((err) => {
+    console.error("Failed to initialize session: ", err);
+  })
+});
 
   return (
     <>
@@ -33,7 +26,6 @@ function App() {
         <MealForm />
         <MealList />
         <RecommendationDisplay />
-        <p>{message}</p> {/* Display the test message from the API */}
       </div>
     </>
   )

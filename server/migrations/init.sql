@@ -16,7 +16,8 @@ CREATE TABLE meals (
     notes TEXT
 );
 
-CREATE TABLE resturants (
+-- Stretch goal: allow users to add restaurants, and link meals to those restaurants
+CREATE TABLE restaurants (
     id UUID PRIMARY KEY,
     name TEXT NOT NULL,
     cuisine TEXT,
@@ -24,6 +25,7 @@ CREATE TABLE resturants (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )
 
+-- Stretch goal: allow users to mark restaurants as favorites, and track when they were added to favorites
 CREATE TABLE favorite_restaurants (
     user_id UUID NOT NULL,
     restaurant_id UUID NOT NULL,
