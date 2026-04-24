@@ -16,16 +16,22 @@ function App() {
 // On component mount, initialize the user session by calling the API.
 // This will check if the user is already logged in and set up the session accordingly.
 useEffect(() => {
-  initSession().then(() => {
-    setReady(true);
-  }).catch((err) => {
-    console.error("Failed to initialize session: ", err);
-  })
-});
+  const initializeUser = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/users");
+      const data = await response.json();
+      setUserId(data.user_id);
+      setUserReady(true);
+    } catch (error) {
+      console.error("Failed to initialize user", error);
+    }
+  };
+  initializeUser();
+}, []);
 
-if (!ready) {
-  return <div>Loading...</div>;
-}
+// Conditional render
+return userReady ? <Dashboard /> : <LoadingSpinner />;
+
   return (
     <>
       <div className="app-container">
