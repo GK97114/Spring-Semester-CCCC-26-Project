@@ -11,8 +11,6 @@ function App() {
   const [meals, setMeals] = useState([]);     // State to hold the list of meals added by the user
   const [message, setMessage] = useState(""); // State to hold the test message from the API
 
-  const [ready, setReady] = useState(false); // State to track if the app is ready (e.g., after session initialization)
-
 // On component mount, initialize the user session by calling the API.
 // This will check if the user is already logged in and set up the session accordingly.
 useEffect(() => {
@@ -29,7 +27,7 @@ useEffect(() => {
   initializeUser();
 }, []);
 
-// Conditional render
+// Conditional render to show a loading spinner while the user session is being initialized, and then show the main dashboard once ready
 return userReady ? <Dashboard /> : <LoadingSpinner />;
 
   return (
