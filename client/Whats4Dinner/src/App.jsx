@@ -11,14 +11,21 @@ function App() {
   const [meals, setMeals] = useState([]);     // State to hold the list of meals added by the user
   const [message, setMessage] = useState(""); // State to hold the test message from the API
 
+  const [ready, setReady] = useState(false); // State to track if the app is ready (e.g., after session initialization)
+
 // On component mount, initialize the user session by calling the API.
 // This will check if the user is already logged in and set up the session accordingly.
 useEffect(() => {
-  initSession().catch((err) => {
+  initSession().then(() => {
+    setReady(true);
+  }).catch((err) => {
     console.error("Failed to initialize session: ", err);
   })
 });
 
+if (!ready) {
+  return <div>Loading...</div>;
+}
   return (
     <>
       <div className="app-container">
