@@ -3,7 +3,7 @@ CREATE TABLE users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     last_login TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     is_active BOOLEAN DEFAULT TRUE
-)
+);
 
 CREATE TABLE meals (
     id UUID PRIMARY KEY,
@@ -23,7 +23,7 @@ CREATE TABLE restaurants (
     cuisine TEXT,
     google_place_id TEXT UNIQUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)
+);
 
 -- Stretch goal: allow users to mark restaurants as favorites, and track when they were added to favorites
 CREATE TABLE favorite_restaurants (
@@ -32,3 +32,10 @@ CREATE TABLE favorite_restaurants (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     UNIQUE(user_id, restaurant_id)
 );
+
+-- Index to optimize queries that filter meals by user_id, which is a common pattern for fetching meals for a specific user
+CREATE INDEX IF NOT EXISTS meals_user_id_idx ON public.meals(user_id);
+
+-- Indexes to optimize queries that filter meals by created_at and user_id + created_at, which are common patterns for fetching recent meals for a user
+CREATE INDEX IF NOT EXISTS meals_created_at_idx ON public.meals(created_at);
+CREATE INDEX IF NOT EXISTS meals_user_created_idx ON public.meals(user_id, created_at);
