@@ -1,10 +1,11 @@
 // Goal: Recommend meals based on user meal history and cuisine preferences
 
-const express = require("express");
+import express from "express";
+import pool from "../db";
+import { requireUser } from "../middleware/auth";
+import { CUISINES_MASTER_LIST } from "../utils/cuisines.js";
+
 const router = express.Router();
-const pool = require("../db");
-const { requireUser } = require("../middleware/auth");
-const { CUISINES_MASTER_LIST } = require("../utils/cuisinesMasterList");
 
 router.get("/", requireUser, async (req, res) => {
     try {
@@ -22,7 +23,6 @@ router.get("/", requireUser, async (req, res) => {
 
         // Handle edge cases and default to popular cuisines for less than 7 days of meals
         const uniqueCuisines = new Set(recentMeals.map(meal => meal.cuisine));
-
         const notEnoughMeals = recentMeals.length < 5;
 
         // Recommend the most popular cuisines from the table if user has less than 5 meals
@@ -112,8 +112,12 @@ router.get("/", requireUser, async (req, res) => {
                 return { cuisine, reason };
         });
 
+        return res.json({ recommendations });
+
     } catch (error) {
         console.error("Error fetching recommendations:", error);
         res.status(500).json({ error: "Error fetching recommendations" });
     }
 });
+
+export default router;
