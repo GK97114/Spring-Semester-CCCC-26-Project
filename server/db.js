@@ -1,4 +1,8 @@
 import pkg from 'pg';
+import dotenv from 'dotenv';
+// Immediately load environment variables before creating the pool
+dotenv.config();
+
 const { Pool } = pkg;
 
 // Pool configuration
