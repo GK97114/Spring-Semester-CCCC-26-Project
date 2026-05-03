@@ -25,7 +25,7 @@ function App() {
     initializeUser();
   }, []);
 
-  // Conditional render to show a loading spinner while the user session is being initialized, and then show the main dashboard once ready
+  // Conditional render to show a loading message while the user session is being initialized.
   if (!userReady) {
     return <div>Loading...</div>;
   }
