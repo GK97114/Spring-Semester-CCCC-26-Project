@@ -17,14 +17,14 @@ A meal tracking and cuisine recommendation app to help users decide what to eat 
 - [x] Create `scripts/init-db.js` initialization script
 - [x] Run migrations to Supabase
 
-### Phase 3: Build Backend API Endpoints ⚠️ ~80% COMPLETE
+### Phase 3: Build Backend API Endpoints ✅ COMPLETE
 - [x] Create `routes/users.js` - UUID generation, cookie-based auth
 - [x] Create `routes/meals.js` - CRUD endpoints
 - [x] Create `routes/recommendations.js` - recommendation algorithm
 - [x] Create auth middleware
 - [x] Set up `.env` with DATABASE_URL
-- [x] **Register meals.js and recommendations.js routes in `server/index.js`**
-- [x] **Convert recommendations.js from CommonJS to ES modules**
+- [x] Register meals.js and recommendations.js routes in `server/index.js`
+- [x] Convert recommendations.js from CommonJS to ES modules
 
 ### Phase 4: Frontend API Integration & UI (🔄 IN PROGRESS)
 - [x] Expand `services/api.js` with real API functions
