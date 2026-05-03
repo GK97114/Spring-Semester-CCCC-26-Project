@@ -23,8 +23,8 @@ A meal tracking and cuisine recommendation app to help users decide what to eat 
 - [x] Create `routes/recommendations.js` - recommendation algorithm
 - [x] Create auth middleware
 - [x] Set up `.env` with DATABASE_URL
-- [ ] **Register meals.js and recommendations.js routes in `server/index.js`**
-- [ ] **Convert recommendations.js from CommonJS to ES modules**
+- [x] **Register meals.js and recommendations.js routes in `server/index.js`**
+- [x] **Convert recommendations.js from CommonJS to ES modules**
 
 ### Phase 4: Frontend API Integration & UI (🔄 IN PROGRESS)
 - [ ] Expand `services/api.js` with real API functions

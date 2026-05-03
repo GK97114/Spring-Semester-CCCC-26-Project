@@ -1,4 +1,4 @@
-import { useState, useEffect, use } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 
 import { initSession } from './services/api.js';
@@ -7,39 +7,41 @@ import MealList from './components/MealList.jsx';
 import RecommendationDisplay from './components/RecommendDisplay.jsx';
 
 function App() {
-  const [meal, setMeal] = useState("");       // State to hold the current meal input by the user
-  const [meals, setMeals] = useState([]);     // State to hold the list of meals added by the user
-  const [message, setMessage] = useState(""); // State to hold the test message from the API
+  const [userReady, setUserReady] = useState(false); // State to track if the user session is ready
+  const [error, setError] = useState(""); // State to track any errors during initialization
 
-// On component mount, initialize the user session by calling the API.
-// This will check if the user is already logged in and set up the session accordingly.
-useEffect(() => {
-  const initializeUser = async () => {
-    try {
-      const response = await fetch("http://localhost:5000/api/users");
-      const data = await response.json();
-      setUserId(data.user_id);
-      setUserReady(true);
-    } catch (error) {
-      console.error("Failed to initialize user", error);
-    }
-  };
-  initializeUser();
-}, []);
+  // On component mount, initialize the user session by calling the API.
+  // This will check if the user is already logged in and set up the session accordingly.
+  useEffect(() => {
+    const initializeUser = async () => {
+      try {
+        await initSession(); // Call the API to initialize the user session
+      } catch (error) {
+        console.error("Failed to initialize user", error);
+        setError("Failed to initialize user session. Please try again.");
+      } finally {
+        setUserReady(true);}
+    };
+    initializeUser();
+  }, []);
 
-// Conditional render to show a loading spinner while the user session is being initialized, and then show the main dashboard once ready
-return userReady ? <Dashboard /> : <LoadingSpinner />;
+  // Conditional render to show a loading spinner while the user session is being initialized, and then show the main dashboard once ready
+  if (!userReady) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
       <div className="app-container">
         <h1>Whats4Dinner?</h1>
+
+        {error && <p>{error}</p>}
+
         <MealForm />
         <MealList />
         <RecommendationDisplay />
       </div>
     </>
-  )
+  );
 }
-
-export default App
+export default App;
