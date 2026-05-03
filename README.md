@@ -27,11 +27,11 @@ A meal tracking and cuisine recommendation app to help users decide what to eat 
 - [x] **Convert recommendations.js from CommonJS to ES modules**
 
 ### Phase 4: Frontend API Integration & UI (🔄 IN PROGRESS)
-- [ ] Expand `services/api.js` with real API functions
-- [ ] Update MealForm component with state + API integration
-- [ ] Update MealList component with real data fetching
-- [ ] Update RecommendDisplay component with dynamic recommendations
-- [ ] Update App.jsx to bootstrap user session on mount
+- [x] Expand `services/api.js` with real API functions
+- [x] Update MealForm component with state + API integration
+- [x] Update MealList component with real data fetching
+- [x] Update RecommendDisplay component with dynamic recommendations
+- [x] Update App.jsx to bootstrap user session on mount
 - [ ] Test end-to-end: add meal → view → recommend
 
 ### Phase 5: Render Deployment Configuration (⏳ TODO)
