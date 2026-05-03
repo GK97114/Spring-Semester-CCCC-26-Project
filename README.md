@@ -97,24 +97,6 @@ npm run dev      # Start dev server on port 3000
 
 ---
 
-## Next Immediate Steps (Priority Order)
-
-1. **Fix Phase 3 blockers** (15 min):
-   - Register `mealsRoutes` and `recommendationsRoutes` in `server/index.js`
-   - Convert `recommendations.js` to ES modules (change `require()` to `import`)
-
-2. **Complete Phase 4** (2-3 hours):
-   - Update `services/api.js` with real API functions
-   - Implement state management in components
-   - Bootstrap user session in App.jsx
-   - Test end-to-end flow
-
-3. **Defer Phase 5** until MVP is working:
-   - Render deployment configuration
-   - Environment variable setup for production
-
----
-
 ## Development Notes
 
 - Cookie is set for 30 days (max age)
