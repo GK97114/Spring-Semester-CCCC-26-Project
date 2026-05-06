@@ -56,7 +56,7 @@ function MealForm({ onMealCreated }) {
                     onChange={(e) => setMealName(e.target.value)}
                     required
                 />
-                <select value={cuisine} on onChange={(e) => setCuisine(e.target.value)} required>
+                <select value={cuisine} onChange={(e) => setCuisine(e.target.value)} required>
                     <option value="">Select a Cuisine</option>
                     <option value="American">American</option>
                     <option value="Barbeque">Barbeque</option>
