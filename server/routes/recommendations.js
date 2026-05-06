@@ -1,7 +1,7 @@
 // Goal: Recommend meals based on user meal history and cuisine preferences
 
 import express from "express";
-import pool from "../db";
+import pool from "../db.json";
 import { requireUser } from "../middleware/auth";
 import { CUISINES_MASTER_LIST } from "../utils/cuisines.js";
 
