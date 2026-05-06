@@ -13,7 +13,7 @@ const app = express();
 
 // CORS configuration to allow requests from the frontend and enable cookies for session management
 app.use(cors({
-    origin: "http://localhost:3000",
+    origin: "http://localhost:5173",
     credentials: true, // Allow cookies to be sent
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type']
