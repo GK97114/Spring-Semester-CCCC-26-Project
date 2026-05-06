@@ -7,7 +7,7 @@ const router = express.Router();
 // GET /api/users
 router.get('/', async (req, res) => {
     try {
-        let userId = req.cookies.userId;
+        let userId = req.cookies.user_id;
 
         // Check if user has a cookie
         if (userId) {
