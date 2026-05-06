@@ -4,7 +4,7 @@ import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 dotenv.config();
 
-import pool from "./db";
+import pool from "./db.js";
 import userRoutes from "./routes/users.js";
 import recommendationRoutes from "./routes/recommendations.js";
 import mealRoutes from "./routes/meals.js";
