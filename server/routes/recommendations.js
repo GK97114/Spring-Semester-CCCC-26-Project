@@ -2,7 +2,7 @@
 
 import express from "express";
 import pool from "../db.js";
-import { requireUser } from "../middleware/auth";
+import { requireUser } from "../middleware/auth.js";
 import { CUISINES_MASTER_LIST } from "../utils/cuisines.js";
 
 const router = express.Router();
