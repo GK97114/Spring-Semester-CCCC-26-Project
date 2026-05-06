@@ -31,10 +31,10 @@ router.get("/", requireUser, async (req, res) => {
 router.post("/", requireUser, async (req, res) => {
     try {
         const userId = req.userId;
-        const { name, cuisine } = req.body;
+        const { meal_name, cuisine } = req.body;
 
         // Validate required fields
-        const error = validateMealInput({ name, cuisine });
+        const error = validateMealInput(meal_name, cuisine);
         if (error) {
             return res.status(400).json({ error: `Bad Request: ${error}` });
         }
@@ -43,12 +43,12 @@ router.post("/", requireUser, async (req, res) => {
         const mealId = uuidv4();
 
         await pool.query(
-            `INSERT INTO meals (id, user_id, name, cuisine)
+            `INSERT INTO meals (id, user_id, meal_name, cuisine)
             VALUES ($1, $2, $3, $4)`,
-            [mealId, userId, name, cuisine || null]
+            [mealId, userId, meal_name, cuisine || null]
         );
 
-        res.json({ id: mealId, name, cuisine });
+        res.json({ id: mealId, meal_name, cuisine });
 
     } catch (err) {
         console.error("Error adding meal:", err);
@@ -81,10 +81,10 @@ router.put("/:id", requireUser, async (req, res) => {
     try {
         const userId = req.userId;
         const { id } = req.params;
-        const { location, name, cuisine, rating, notes } = req.body;
+        const { location, meal_name, cuisine, rating, notes } = req.body;
 
         // Validate required fields
-        const error = validateMealInput({ name, cuisine });
+        const error = validateMealInput(meal_name, cuisine);
         if (error) {
             return res.status(400).json({ error: `Bad Request: ${error}` });
         }
@@ -92,12 +92,12 @@ router.put("/:id", requireUser, async (req, res) => {
         await pool.query(
             `UPDATE meals
             SET location = $1,
-            name = $2,
+            meal_name = $2,
             cuisine = $3,
             rating = $4,
             notes = $5
             WHERE id = $6 AND user_id = $7`,
-            [location || null, name, cuisine, rating || null, notes || null, id, userId]
+            [location || null, meal_name, cuisine, rating || null, notes || null, id, userId]
         );
 
         res.json({ success: true });
