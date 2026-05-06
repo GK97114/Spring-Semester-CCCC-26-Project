@@ -42,7 +42,7 @@ async function request(path, options = {}) {
  * @throws an error if the request fails, which can be used to determine if the user is not logged in or if there was a server issue.
  */
 export async function initSession() {
-    return request("/users/session", {
+    return request("/users", {
         method: "GET",
     });
 }
