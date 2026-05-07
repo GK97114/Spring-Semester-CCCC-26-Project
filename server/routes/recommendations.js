@@ -10,7 +10,7 @@ const router = express.Router();
 router.get("/", requireUser, async (req, res) => {
     try {
         // Inputs
-        const { userId } = req.user;
+        const userId = req.userId;    // Get userId from request object (set by requireUser middleware)
 
         // Get Recent meals from last 7 to 14 days
         const result = await pool.query(
