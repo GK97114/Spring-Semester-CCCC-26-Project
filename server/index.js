@@ -29,6 +29,7 @@ app.use("/api/recommendations", recommendationRoutes);
 app.use("/api/meals", mealRoutes);
 
 // Start the server
-app.listen(5000, () => {
-    console.log("Server is running on port 5000");
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
