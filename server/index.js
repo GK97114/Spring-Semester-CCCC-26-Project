@@ -11,10 +11,14 @@ import mealRoutes from "./routes/meals.js";
 
 const app = express();
 
+const allowedOrigins = process.env.ALLOWED_ORIGIN
+    ? [process.env.ALLOWED_ORIGIN]
+    : ["http://localhost:5173"];
+
 // CORS configuration to allow requests from the frontend and enable cookies for session management
 app.use(cors({
-    origin: "http://localhost:5173",
-    credentials: true, // Allow cookies to be sent
+    origin: allowedOrigins,
+    credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type']
 }));
