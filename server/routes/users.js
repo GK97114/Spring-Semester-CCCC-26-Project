@@ -27,7 +27,7 @@ router.get('/', async (req, res) => {
         // Set Cookie with the new UUID
         res.cookie("user_id", userId, {
             httpOnly: true,
-            secure: false, // TODO Set to true in production with HTTPS
+            secure: process.env.NODE_ENV === "production",
             sameSite: "lax",
             maxAge: 1000 * 60 * 60 * 24 * 30, // 30 days
         });
