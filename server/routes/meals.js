@@ -68,6 +68,10 @@ router.delete("/:id", requireUser, async (req, res) => {
             [id, userId]
         );
 
+        if (res.rowCount === 0) {
+            return res.status(404).json({ error: "Meal not found"});
+        }
+
         res.json({ success: true });
 
     } catch (err) {
@@ -99,6 +103,10 @@ router.put("/:id", requireUser, async (req, res) => {
             WHERE id = $6 AND user_id = $7`,
             [location || null, meal_name, cuisine, rating || null, notes || null, id, userId]
         );
+
+        if(res.rowCount === 0) {
+            return res.status(404).json({ error: "Meal not found"})
+        }
 
         res.json({ success: true });
 
