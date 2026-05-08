@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: whats4dinner-server
+    runtime: node
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: DATABASE_URL
+        sync: false          # You'll paste this manually in Render dashboard
+      - key: ALLOWED_ORIGIN
+        sync: false          # You'll paste your frontend URL after it deploys
+
+  - type: static
+    name: whats4dinner-client
+    rootDir: client/Whats4Dinner
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        sync: false          # You'll paste your backend URL after it deploys
