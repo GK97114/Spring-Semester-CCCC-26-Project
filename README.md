@@ -35,10 +35,10 @@ A meal tracking and cuisine recommendation app to help users decide what to eat 
 - [x] Test end-to-end: add meal → view → recommend
 
 ### Phase 5: Render Deployment Configuration (⏳ TODO)
-- [ ] Create `render.yaml` deployment config
-- [ ] Update scripts in `package.json` for production
-- [ ] Configure environment variables on Render
-- [ ] Deploy and verify
+- [x] Create `render.yaml` deployment config
+- [x] Update scripts in `package.json` for production
+- [x] Configure environment variables on Render
+- [x] Deploy and verify
 
 ---
 
