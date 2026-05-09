@@ -56,10 +56,10 @@ A meal tracking and cuisine recommendation app to help users decide what to eat 
 #### Frontend Component Tests
 - [x] Install Vitest + React Testing Library in `client/Whats4Dinner/`
 - [x] Create `client/Whats4Dinner/src/tests/` directory
-- [ ] Write tests for `MealForm` — renders correctly, submits valid input, blocks empty submission
-- [ ] Write tests for `MealList` — renders meal list, handles empty state, delete triggers correctly
-- [ ] Write tests for `RecommendDisplay` — renders recommendations, handles loading state, handles empty recommendations
-- [ ] Mock `services/api.js` for all frontend tests (no real API calls in CI)
+- [x] Write tests for `MealForm` — renders correctly, submits valid input, blocks empty submission
+- [x] Write tests for `MealList` — renders meal list, handles empty state, delete triggers correctly
+- [x] Write tests for `RecommendDisplay` — renders recommendations, handles loading state, handles empty recommendations
+- [x] Mock `services/api.js` for all frontend tests (no real API calls in CI)
 
 #### GitHub Actions CI Pipeline
 - [ ] Create `.github/workflows/ci.yml`
