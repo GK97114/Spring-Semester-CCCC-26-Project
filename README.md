@@ -26,7 +26,7 @@ A meal tracking and cuisine recommendation app to help users decide what to eat 
 - [x] Register meals.js and recommendations.js routes in `server/index.js`
 - [x] Convert recommendations.js from CommonJS to ES modules
 
-### Phase 4: Frontend API Integration & UI (🔄 IN PROGRESS)
+### Phase 4: Frontend API Integration & UI ✅ COMPLETE
 - [x] Expand `services/api.js` with real API functions
 - [x] Update MealForm component with state + API integration
 - [x] Update MealList component with real data fetching
@@ -34,11 +34,55 @@ A meal tracking and cuisine recommendation app to help users decide what to eat 
 - [x] Update App.jsx to bootstrap user session on mount
 - [x] Test end-to-end: add meal → view → recommend
 
-### Phase 5: Render Deployment Configuration (⏳ TODO)
+### Phase 5: Render Deployment Configuration ✅ COMPLETE
 - [x] Create `render.yaml` deployment config
 - [x] Update scripts in `package.json` for production
 - [x] Configure environment variables on Render
 - [x] Deploy and verify
+
+### Phase 6: Testing & CI/CD Pipeline (⏳ TODO)
+
+#### Backend Unit & Integration Tests
+- [ ] Install Vitest + Supertest in `server/`
+- [ ] Create `server/tests/` directory
+- [ ] Write tests for `POST /api/meals` — valid input, missing fields, invalid cuisine
+- [ ] Write tests for `GET /api/meals` — returns only user's meals, respects 14 day window
+- [ ] Write tests for `DELETE /api/meals/:id` — success, 404 on missing meal
+- [ ] Write tests for `PUT /api/meals/:id` — success, 404 on missing meal
+- [ ] Write tests for `GET /api/users` — new user creation, existing session reuse
+- [ ] Write tests for `GET /api/recommendations` — notEnoughMeals path, uniqueCuisines path, weighted scoring path
+- [ ] Mock database pool for unit tests (no real DB calls in CI)
+
+#### Frontend Component Tests
+- [ ] Install Vitest + React Testing Library in `client/Whats4Dinner/`
+- [ ] Create `client/Whats4Dinner/src/tests/` directory
+- [ ] Write tests for `MealForm` — renders correctly, submits valid input, blocks empty submission
+- [ ] Write tests for `MealList` — renders meal list, handles empty state, delete triggers correctly
+- [ ] Write tests for `RecommendDisplay` — renders recommendations, handles loading state, handles empty recommendations
+- [ ] Mock `services/api.js` for all frontend tests (no real API calls in CI)
+
+#### GitHub Actions CI Pipeline
+- [ ] Create `.github/workflows/ci.yml`
+- [ ] Trigger on push to all branches and on pull requests to `main`
+- [ ] Add backend test job — install dependencies, run Vitest
+- [ ] Add frontend test job — install dependencies, run Vitest
+- [ ] Block merges to `main` if any tests fail
+- [ ] Add Node.js version matrix (test against Node 18 and 20)
+
+#### GitHub Actions CD Pipeline
+- [ ] Create `.github/workflows/deploy.yml`
+- [ ] Trigger on push to `main` only
+- [ ] Add deploy step — call Render deploy hook for backend web service
+- [ ] Add deploy step — call Render deploy hook for frontend static site
+- [ ] Store Render deploy hook URLs as GitHub Actions secrets
+- [ ] Verify deploy succeeds before marking workflow complete
+
+#### Housekeeping
+- [ ] Add test scripts to `server/package.json` — `"test": "vitest run"`
+- [ ] Add test scripts to `client/Whats4Dinner/package.json` — `"test": "vitest run"`
+- [ ] Add `.github/` to `.gitignore` exceptions (it must be committed)
+- [ ] Update README with how to run tests locally
+- [ ] Document how to get Render deploy hook URLs for new contributors
 
 ---
 
