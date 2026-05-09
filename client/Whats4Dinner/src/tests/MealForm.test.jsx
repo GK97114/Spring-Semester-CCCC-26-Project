@@ -98,10 +98,10 @@ describe("MealForm — successful submission", () => {
 
     it("calls onMealCreated callback after successful submission", async () => {
         createMeal.mockResolvedValueOnce({ id: "meal-1", meal_name: "Pizza", cuisine: "Italian" });
+        const onMealCreated = vi.fn();
 
         render(<MealForm onMealCreated={onMealCreated} />);
 
-        const onMealCreated = vi.fn();
         const user = userEvent.setup();
 
         await user.type(screen.getByPlaceholderText("Meal Name"), "Pizza");
@@ -138,10 +138,10 @@ describe("MealForm — failed submission", () => {
 
     it("does not call onMealCreated when createMeal throws", async () => {
         createMeal.mockRejectedValueOnce(new Error("API request failed"));
+        const onMealCreated = vi.fn();
 
         render(<MealForm onMealCreated={onMealCreated} />);
 
-        const onMealCreated = vi.fn();
         const user = userEvent.setup();
 
         await user.type(screen.getByPlaceholderText("Meal Name"), "Pizza");
