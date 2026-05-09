@@ -45,13 +45,13 @@ A meal tracking and cuisine recommendation app to help users decide what to eat 
 #### Backend Unit & Integration Tests
 - [x] Install Vitest + Supertest in `server/`
 - [x] Create `server/tests/` directory
-- [ ] Write tests for `POST /api/meals` — valid input, missing fields, invalid cuisine
-- [ ] Write tests for `GET /api/meals` — returns only user's meals, respects 14 day window
-- [ ] Write tests for `DELETE /api/meals/:id` — success, 404 on missing meal
-- [ ] Write tests for `PUT /api/meals/:id` — success, 404 on missing meal
-- [ ] Write tests for `GET /api/users` — new user creation, existing session reuse
-- [ ] Write tests for `GET /api/recommendations` — notEnoughMeals path, uniqueCuisines path, weighted scoring path
-- [ ] Mock database pool for unit tests (no real DB calls in CI)
+- [x] Write tests for `POST /api/meals` — valid input, missing fields, invalid cuisine
+- [x] Write tests for `GET /api/meals` — returns only user's meals, respects 14 day window
+- [x] Write tests for `DELETE /api/meals/:id` — success, 404 on missing meal
+- [x] Write tests for `PUT /api/meals/:id` — success, 404 on missing meal
+- [x] Write tests for `GET /api/users` — new user creation, existing session reuse
+- [x] Write tests for `GET /api/recommendations` — notEnoughMeals path, uniqueCuisines path, weighted scoring path
+- [x] Mock database pool for unit tests (no real DB calls in CI)
 
 #### Frontend Component Tests
 - [x] Install Vitest + React Testing Library in `client/Whats4Dinner/`
