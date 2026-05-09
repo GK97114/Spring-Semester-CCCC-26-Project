@@ -43,8 +43,8 @@ A meal tracking and cuisine recommendation app to help users decide what to eat 
 ### Phase 6: Testing & CI/CD Pipeline (⏳ TODO)
 
 #### Backend Unit & Integration Tests
-- [ ] Install Vitest + Supertest in `server/`
-- [ ] Create `server/tests/` directory
+- [x] Install Vitest + Supertest in `server/`
+- [x] Create `server/tests/` directory
 - [ ] Write tests for `POST /api/meals` — valid input, missing fields, invalid cuisine
 - [ ] Write tests for `GET /api/meals` — returns only user's meals, respects 14 day window
 - [ ] Write tests for `DELETE /api/meals/:id` — success, 404 on missing meal
@@ -54,8 +54,8 @@ A meal tracking and cuisine recommendation app to help users decide what to eat 
 - [ ] Mock database pool for unit tests (no real DB calls in CI)
 
 #### Frontend Component Tests
-- [ ] Install Vitest + React Testing Library in `client/Whats4Dinner/`
-- [ ] Create `client/Whats4Dinner/src/tests/` directory
+- [x] Install Vitest + React Testing Library in `client/Whats4Dinner/`
+- [x] Create `client/Whats4Dinner/src/tests/` directory
 - [ ] Write tests for `MealForm` — renders correctly, submits valid input, blocks empty submission
 - [ ] Write tests for `MealList` — renders meal list, handles empty state, delete triggers correctly
 - [ ] Write tests for `RecommendDisplay` — renders recommendations, handles loading state, handles empty recommendations
@@ -78,8 +78,8 @@ A meal tracking and cuisine recommendation app to help users decide what to eat 
 - [ ] Verify deploy succeeds before marking workflow complete
 
 #### Housekeeping
-- [ ] Add test scripts to `server/package.json` — `"test": "vitest run"`
-- [ ] Add test scripts to `client/Whats4Dinner/package.json` — `"test": "vitest run"`
+- [x] Add test scripts to `server/package.json` — `"test": "vitest run"`
+- [x] Add test scripts to `client/Whats4Dinner/package.json` — `"test": "vitest run"`
 - [ ] Add `.github/` to `.gitignore` exceptions (it must be committed)
 - [ ] Update README with how to run tests locally
 - [ ] Document how to get Render deploy hook URLs for new contributors

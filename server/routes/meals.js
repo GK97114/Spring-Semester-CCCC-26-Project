@@ -62,13 +62,13 @@ router.delete("/:id", requireUser, async (req, res) => {
         const userId = req.userId;
         const { id } = req.params;
 
-        await pool.query(
+        const result = await pool.query(
             `DELETE FROM meals
             WHERE id = $1 AND user_id = $2`,
             [id, userId]
         );
 
-        if (res.rowCount === 0) {
+        if (result.rowCount === 0) {
             return res.status(404).json({ error: "Meal not found"});
         }
 
@@ -93,7 +93,7 @@ router.put("/:id", requireUser, async (req, res) => {
             return res.status(400).json({ error: `Bad Request: ${error}` });
         }
 
-        await pool.query(
+        const result = await pool.query(
             `UPDATE meals
             SET location = $1,
             meal_name = $2,
@@ -104,7 +104,7 @@ router.put("/:id", requireUser, async (req, res) => {
             [location || null, meal_name, cuisine, rating || null, notes || null, id, userId]
         );
 
-        if(res.rowCount === 0) {
+        if(result.rowCount === 0) {
             return res.status(404).json({ error: "Meal not found"})
         }
 
