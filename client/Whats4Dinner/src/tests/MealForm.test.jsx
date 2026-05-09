@@ -51,9 +51,10 @@ describe("MealForm — successful submission", () => {
 
     it("calls createMeal with correct data on submit", async () => {
         createMeal.mockResolvedValueOnce({ id: "meal-1", meal_name: "Pizza", cuisine: "Italian" });
-        const user = userEvent.setup();
 
         render(<MealForm />);
+
+        const user = userEvent.setup();
 
         await user.type(screen.getByPlaceholderText("Meal Name"), "Pizza");
         await user.selectOptions(screen.getByRole("combobox"), "Italian");
@@ -64,9 +65,10 @@ describe("MealForm — successful submission", () => {
 
     it("shows success message after meal is created", async () => {
         createMeal.mockResolvedValueOnce({ id: "meal-1", meal_name: "Pizza", cuisine: "Italian" });
-        const user = userEvent.setup();
 
         render(<MealForm />);
+
+        const user = userEvent.setup();
 
         await user.type(screen.getByPlaceholderText("Meal Name"), "Pizza");
         await user.selectOptions(screen.getByRole("combobox"), "Italian");
@@ -79,9 +81,10 @@ describe("MealForm — successful submission", () => {
 
     it("clears form fields after successful submission", async () => {
         createMeal.mockResolvedValueOnce({ id: "meal-1", meal_name: "Pizza", cuisine: "Italian" });
-        const user = userEvent.setup();
 
         render(<MealForm />);
+
+        const user = userEvent.setup();
 
         await user.type(screen.getByPlaceholderText("Meal Name"), "Pizza");
         await user.selectOptions(screen.getByRole("combobox"), "Italian");
@@ -95,10 +98,11 @@ describe("MealForm — successful submission", () => {
 
     it("calls onMealCreated callback after successful submission", async () => {
         createMeal.mockResolvedValueOnce({ id: "meal-1", meal_name: "Pizza", cuisine: "Italian" });
-        const onMealCreated = vi.fn();
-        const user = userEvent.setup();
 
         render(<MealForm onMealCreated={onMealCreated} />);
+
+        const onMealCreated = vi.fn();
+        const user = userEvent.setup();
 
         await user.type(screen.getByPlaceholderText("Meal Name"), "Pizza");
         await user.selectOptions(screen.getByRole("combobox"), "Italian");
@@ -118,9 +122,10 @@ describe("MealForm — failed submission", () => {
 
     it("shows error message when createMeal throws", async () => {
         createMeal.mockRejectedValueOnce(new Error("API request failed"));
-        const user = userEvent.setup();
 
         render(<MealForm />);
+
+        const user = userEvent.setup();
 
         await user.type(screen.getByPlaceholderText("Meal Name"), "Pizza");
         await user.selectOptions(screen.getByRole("combobox"), "Italian");
@@ -133,10 +138,11 @@ describe("MealForm — failed submission", () => {
 
     it("does not call onMealCreated when createMeal throws", async () => {
         createMeal.mockRejectedValueOnce(new Error("API request failed"));
-        const onMealCreated = vi.fn();
-        const user = userEvent.setup();
 
         render(<MealForm onMealCreated={onMealCreated} />);
+
+        const onMealCreated = vi.fn();
+        const user = userEvent.setup();
 
         await user.type(screen.getByPlaceholderText("Meal Name"), "Pizza");
         await user.selectOptions(screen.getByRole("combobox"), "Italian");

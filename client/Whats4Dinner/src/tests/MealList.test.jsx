@@ -85,9 +85,10 @@ describe("MealList — deleting meals", () => {
             { id: "meal-1", meal_name: "Pizza", cuisine: "Italian" }
         ]);
         deleteMeal.mockResolvedValueOnce({ success: true });
-        const user = userEvent.setup();
 
         render(<MealList />);
+
+        const user = userEvent.setup();
 
         await waitFor(() => screen.getByText("Pizza"));
         await user.click(screen.getByRole("button", { name: "Delete" }));
@@ -100,9 +101,10 @@ describe("MealList — deleting meals", () => {
             .mockResolvedValueOnce([{ id: "meal-1", meal_name: "Pizza", cuisine: "Italian" }])
             .mockResolvedValueOnce([]); // Empty after deletion
         deleteMeal.mockResolvedValueOnce({ success: true });
-        const user = userEvent.setup();
 
         render(<MealList />);
+
+        const user = userEvent.setup();
 
         await waitFor(() => screen.getByText("Pizza"));
         await user.click(screen.getByRole("button", { name: "Delete" }));
@@ -117,9 +119,10 @@ describe("MealList — deleting meals", () => {
             { id: "meal-1", meal_name: "Pizza", cuisine: "Italian" }
         ]);
         deleteMeal.mockRejectedValueOnce(new Error("Failed to delete"));
-        const user = userEvent.setup();
 
         render(<MealList />);
+
+        const user = userEvent.setup();
 
         await waitFor(() => screen.getByText("Pizza"));
         await user.click(screen.getByRole("button", { name: "Delete" }));

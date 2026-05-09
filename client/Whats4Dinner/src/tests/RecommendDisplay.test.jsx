@@ -39,9 +39,11 @@ describe("RecommendationDisplay — loading state", () => {
 
     it("shows thinking state and disables button while loading", async () => {
         getRecommendations.mockReturnValueOnce(new Promise(() => {}));
-        const user = userEvent.setup();
 
         render(<RecommendationDisplay />);
+
+        const user = userEvent.setup();
+
         await user.click(screen.getByRole("button", { name: "Get Recommendations" }));
 
         expect(screen.getByRole("button", { name: "Thinking..." })).toBeDisabled();
@@ -58,9 +60,11 @@ describe("RecommendationDisplay — string recommendations", () => {
         getRecommendations.mockResolvedValueOnce({
             recommendations: ["Italian", "Mexican", "Japanese"]
         });
-        const user = userEvent.setup();
 
         render(<RecommendationDisplay />);
+
+        const user = userEvent.setup();
+
         await user.click(screen.getByRole("button", { name: "Get Recommendations" }));
 
         await waitFor(() => {
@@ -84,9 +88,11 @@ describe("RecommendationDisplay — object recommendations", () => {
                 { cuisine: "Mexican", reason: "You've only had this cuisine recently" }
             ]
         });
-        const user = userEvent.setup();
 
         render(<RecommendationDisplay />);
+
+        const user = userEvent.setup();
+
         await user.click(screen.getByRole("button", { name: "Get Recommendations" }));
 
         await waitFor(() => {
@@ -100,9 +106,11 @@ describe("RecommendationDisplay — object recommendations", () => {
         getRecommendations.mockResolvedValueOnce({
             recommendations: [{ cuisine: "Italian" }]
         });
-        const user = userEvent.setup();
 
         render(<RecommendationDisplay />);
+
+        const user = userEvent.setup();
+
         await user.click(screen.getByRole("button", { name: "Get Recommendations" }));
 
         await waitFor(() => {
@@ -119,9 +127,11 @@ describe("RecommendationDisplay — error handling", () => {
 
     it("shows error message when getRecommendations throws", async () => {
         getRecommendations.mockRejectedValueOnce(new Error("Failed to fetch recommendations"));
-        const user = userEvent.setup();
 
         render(<RecommendationDisplay />);
+
+        const user = userEvent.setup();
+
         await user.click(screen.getByRole("button", { name: "Get Recommendations" }));
 
         await waitFor(() => {
@@ -131,9 +141,11 @@ describe("RecommendationDisplay — error handling", () => {
 
     it("re-enables button after error", async () => {
         getRecommendations.mockRejectedValueOnce(new Error("Failed to fetch recommendations"));
-        const user = userEvent.setup();
 
         render(<RecommendationDisplay />);
+
+        const user = userEvent.setup();
+
         await user.click(screen.getByRole("button", { name: "Get Recommendations" }));
 
         await waitFor(() => {
