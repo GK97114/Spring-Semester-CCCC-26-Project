@@ -40,7 +40,7 @@ A meal tracking and cuisine recommendation app to help users decide what to eat 
 - [x] Configure environment variables on Render
 - [x] Deploy and verify
 
-### Phase 6: Testing & CI/CD Pipeline (⏳ TODO)
+### Phase 6: Testing & CI/CD Pipeline ✅ COMPLETE
 
 #### Backend Unit & Integration Tests
 - [x] Install Vitest + Supertest in `server/`
@@ -62,25 +62,25 @@ A meal tracking and cuisine recommendation app to help users decide what to eat 
 - [x] Mock `services/api.js` for all frontend tests (no real API calls in CI)
 
 #### GitHub Actions CI Pipeline
-- [ ] Create `.github/workflows/ci.yml`
-- [ ] Trigger on push to all branches and on pull requests to `main`
-- [ ] Add backend test job — install dependencies, run Vitest
-- [ ] Add frontend test job — install dependencies, run Vitest
-- [ ] Block merges to `main` if any tests fail
-- [ ] Add Node.js version matrix (test against Node 18 and 20)
+- [x] Create `.github/workflows/ci.yml`
+- [x] Trigger on push to all branches and on pull requests to `main`
+- [x] Add backend test job — install dependencies, run Vitest
+- [x] Add frontend test job — install dependencies, run Vitest
+- [x] Block merges to `main` if any tests fail
+- [x] Add Node.js version matrix (test against Node 18 and 20)
 
 #### GitHub Actions CD Pipeline
-- [ ] Create `.github/workflows/deploy.yml`
-- [ ] Trigger on push to `main` only
-- [ ] Add deploy step — call Render deploy hook for backend web service
-- [ ] Add deploy step — call Render deploy hook for frontend static site
-- [ ] Store Render deploy hook URLs as GitHub Actions secrets
-- [ ] Verify deploy succeeds before marking workflow complete
+- [x] Create `.github/workflows/deploy.yml`
+- [x] Trigger on push to `main` only
+- [x] Add deploy step — call Render deploy hook for backend web service
+- [x] Add deploy step — call Render deploy hook for frontend static site
+- [x] Store Render deploy hook URLs as GitHub Actions secrets
+- [x] Verify deploy succeeds before marking workflow complete
 
 #### Housekeeping
 - [x] Add test scripts to `server/package.json` — `"test": "vitest run"`
 - [x] Add test scripts to `client/Whats4Dinner/package.json` — `"test": "vitest run"`
-- [ ] Add `.github/` to `.gitignore` exceptions (it must be committed)
+- [x] Add `.github/` to `.gitignore` exceptions (it must be committed)
 - [ ] Update README with how to run tests locally
 - [ ] Document how to get Render deploy hook URLs for new contributors
 
@@ -169,3 +169,23 @@ npm run dev      # Start dev server on port 3000
 **Module not found errors**: Ensure `package.json` has `"type": "module"`
 **Routes not found (404)**: Check that routes are imported and registered in `server/index.js`
 
+## Running Tests
+
+### Backend Tests
+```bash
+cd server
+npm test          # Run once
+npm run test:watch  # Watch mode during development
+```
+
+### Frontend Tests
+```bash
+cd client/Whats4Dinner
+npm test          # Run once
+npm run test:watch  # Watch mode during development
+```
+
+### What's tested
+- **Backend**: All API routes (meals, users, recommendations) with mocked database
+- **Frontend**: All components (MealForm, MealList, RecommendDisplay) with mocked API
+- No servers or database connection required to run tests
