@@ -68,7 +68,7 @@ describe("MealList — rendering meals", () => {
         render(<MealList />);
 
         await waitFor(() => {
-            const deleteButtons = screen.getAllByRole("button", { name: "Delete Pizza" });
+            const deleteButtons = screen.getAllByRole("button", { name: "/^Delete/" });
             expect(deleteButtons).toHaveLength(2);
         });
     });
