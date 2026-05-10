@@ -12,7 +12,7 @@ function MealForm({ onMealCreated }) {
     // State variables to track the meal name, cuisine, and any error or success messages
     const [mealName, setMealName] = useState("");
     const [cuisine, setCuisine] = useState("");
-    const [eatenOn, setEatenOn] = useState("");
+    const [eatenOn, setEatenOn] = useState(() => new Date().toISOString().split("T")[0]);
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
 
