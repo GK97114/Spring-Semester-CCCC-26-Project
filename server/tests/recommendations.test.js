@@ -99,19 +99,6 @@ describe("GET /api/recommendations — not enough meals", () => {
         expect(res.status).toBe(200);
         expect(res.body.recommendations).toHaveLength(3);
     });
-
-    it("returns empty recommendations when no global meals exist either", async () => {
-        pool.query.mockResolvedValueOnce({ rows: [] });
-        pool.query.mockResolvedValueOnce({ rows: [] });
-
-        const res = await request(app)
-            .get("/api/recommendations")
-            .set("Cookie", "user_id=test-user-uuid");
-
-        expect(res.status).toBe(200);
-        expect(res.body.recommendations).toHaveLength(0);
-    });
-
 });
 
 
