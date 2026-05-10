@@ -29,30 +29,33 @@ function RecommendationDisplay() {
     }
 
     return (
-        <div className="recommendation-display">
-            <h2>Here's what we recommend!</h2>
+        <div className="section-card">
+            <h2>What should I eat?</h2>
 
-            <button onClick={handleGetRecommendations} disabled={loading}>
-                {loading ? "Thinking..." : "Get Recommendations"}
+            <button className="btn-recommend" onClick={handleGetRecommendations} disabled={loading}>
+                {loading ? "Thinking..." : "✨ Get Recommendations"}
             </button>
 
-            {error && <p className="error">{error}</p>}
+            {error && <p className="msg-error">{error}</p>}
 
             {recommendations.length > 0 && (
-                <ul>
+                <ul className="rec-list">
                     {recommendations.map((rec, index) => {
-                        // Case 1: Backend returned plain strings
-                        if (typeof rec === "string") {
-                            return <li key={index}>{rec}</li>;
-                        }
-
-                        // Case 2: Backend returned objects
-                        return (
-                            <li key={index}>
-                                <strong>{rec.cuisine}</strong>
-                                {rec.reason ? ` - ${rec.reason}` : ""}
-                            </li>
-                        );
+                        <li key={index} className="rec-item">
+                            <div className="rec-number">{index + 1}</div>
+                            <div>
+                                {typeof rec === "string" ? (
+                                    <p className="rec-cuisine">{rec}</p>
+                                ) : (
+                                    <>
+                                        <p className="rec-cuisine">{rec.cuisine}</p>
+                                        {rec.reason && (
+                                            <p className="rec-reason">{rec.reason}</p>
+                                        )}
+                                    </>
+                                )}
+                            </div>
+                        </li>
                     })}
                 </ul>
             )}

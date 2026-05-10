@@ -43,39 +43,57 @@ function MealForm({ onMealCreated }) {
     }
 
     return (
-        <div className="meal-form">
-            <h2>Add a New Meal</h2>
-            {error && <p className="error">{error}</p>}
-            {success && <p className="success">{success}</p>}
+        <div className="section-card">
+            <h2>Add a meal</h2>
 
             <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    placeholder="Meal Name"
-                    value={mealName}
-                    onChange={(e) => setMealName(e.target.value)}
-                    required
-                />
-                <select value={cuisine} onChange={(e) => setCuisine(e.target.value)} required>
-                    <option value="">Select a Cuisine</option>
-                    <option value="American">American</option>
-                    <option value="Barbeque">Barbeque</option>
-                    <option value="Chinese">Chinese</option>
-                    <option value="Fish">Fish</option>
-                    <option value="German">German</option>
-                    <option value="Indian">Indian</option>
-                    <option value="Italian">Italian</option>
-                    <option value="Japanese">Japanese</option>
-                    <option value="Mediterranean">Mediterranean</option>
-                    <option value="Mexican">Mexican</option>
-                    <option value="Other">Other</option>
-                    <option value="Seafood">Seafood</option>
-                    <option value="Tex-Mex">Tex-Mex</option>
-                    <option value="Thai">Thai</option>
-                </select>
+                <div className="form-row">
+                    <div className="form-field">
+                        <label htmlFor="meal-name">Meal name</label>
+                        <input
+                            id="meal-name"
+                            type="text"
+                            placeholder="e.g. Chicken tikka masala"
+                            value={mealName}
+                            onChange={(e) => setMealName(e.target.value)}
+                            required
+                        />
+                    </div>
 
-                <button type="submit">Add Meal</button>
+                    <div className="form-field">
+                        <label htmlFor="cuisine">Cuisine</label>
+                        <select
+                            id="cuisine"
+                            value={cuisine}
+                            onChange={(e) => setCuisine(e.target.value)}
+                            required
+                        >
+                            <option value="">Select cuisine</option>
+                            <option value="American">American</option>
+                            <option value="Barbeque">Barbeque</option>
+                            <option value="Chinese">Chinese</option>
+                            <option value="Fish">Fish</option>
+                            <option value="German">German</option>
+                            <option value="Indian">Indian</option>
+                            <option value="Italian">Italian</option>
+                            <option value="Japanese">Japanese</option>
+                            <option value="Mediterranean">Mediterranean</option>
+                            <option value="Mexican">Mexican</option>
+                            <option value="Other">Other</option>
+                            <option value="Seafood">Seafood</option>
+                            <option value="Tex-Mex">Tex-Mex</option>
+                            <option value="Thai">Thai</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" className="btn-primary">
+                        Add meal
+                    </button>
+                </div>
             </form>
+
+            {error && <p className="msg-error">{error}</p>}
+            {success && <p className="msg-success">{success}</p>}
         </div>
     );
 }

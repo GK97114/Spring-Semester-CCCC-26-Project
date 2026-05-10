@@ -81,8 +81,7 @@ A meal tracking and cuisine recommendation app to help users decide what to eat 
 - [x] Add test scripts to `server/package.json` — `"test": "vitest run"`
 - [x] Add test scripts to `client/Whats4Dinner/package.json` — `"test": "vitest run"`
 - [x] Add `.github/` to `.gitignore` exceptions (it must be committed)
-- [ ] Update README with how to run tests locally
-- [ ] Document how to get Render deploy hook URLs for new contributors
+- [x] Update README with how to run tests locally
 
 ---
 

@@ -32,21 +32,26 @@ function App() {
 
   // Conditional render to show a loading message while the user session is being initialized.
   if (!userReady) {
-    return <div>Loading...</div>;
+    return (
+      <div className="app-container">
+        <div className="state-loading">Loading your session...</div>
+      </div>
+    );
   }
 
   return (
-    <>
-      <div className="app-container">
-        <h1>Whats4Dinner?</h1>
+    <div className="app-container">
+      <header className="app-header">
+        <h1>🍽 Whats4Dinner?</h1>
+        <p>Track what you've eaten and discover what to try next.</p>
+      </header>
 
-        {error && <p>{error}</p>}
+      {error && <p className="msg-error">{error}</p>}
 
-        <MealForm onMealCreated={handleMealCreated} />
-        <MealList key={refreshMealsKey} />
-        <RecommendationDisplay />
-      </div>
-    </>
+      <MealForm onMealCreated={handleMealCreated} />
+      <MealList key={refreshMealsKey} />
+      <RecommendationDisplay />
+    </div>
   );
 }
 export default App;

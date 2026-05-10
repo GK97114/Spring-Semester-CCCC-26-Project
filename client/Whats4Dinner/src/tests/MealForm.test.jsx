@@ -24,7 +24,7 @@ describe("MealForm — rendering", () => {
 
         expect(screen.getByPlaceholderText("Meal Name")).toBeInTheDocument();
         expect(screen.getByRole("combobox")).toBeInTheDocument();
-        expect(screen.getByRole("button", { name: "Add Meal" })).toBeInTheDocument();
+        expect(screen.getByRole("button", { name: "Add meal" })).toBeInTheDocument();
     });
 
     it("renders all cuisine options in the dropdown", () => {
@@ -58,7 +58,7 @@ describe("MealForm — successful submission", () => {
 
         await user.type(screen.getByPlaceholderText("Meal Name"), "Pizza");
         await user.selectOptions(screen.getByRole("combobox"), "Italian");
-        await user.click(screen.getByRole("button", { name: "Add Meal" }));
+        await user.click(screen.getByRole("button", { name: "Add meal" }));
 
         expect(createMeal).toHaveBeenCalledWith({ meal_name: "Pizza", cuisine: "Italian" });
     });
@@ -72,7 +72,7 @@ describe("MealForm — successful submission", () => {
 
         await user.type(screen.getByPlaceholderText("Meal Name"), "Pizza");
         await user.selectOptions(screen.getByRole("combobox"), "Italian");
-        await user.click(screen.getByRole("button", { name: "Add Meal" }));
+        await user.click(screen.getByRole("button", { name: "Add meal" }));
 
         await waitFor(() => {
             expect(screen.getByText("Meal added successfully!")).toBeInTheDocument();
@@ -88,7 +88,7 @@ describe("MealForm — successful submission", () => {
 
         await user.type(screen.getByPlaceholderText("Meal Name"), "Pizza");
         await user.selectOptions(screen.getByRole("combobox"), "Italian");
-        await user.click(screen.getByRole("button", { name: "Add Meal" }));
+        await user.click(screen.getByRole("button", { name: "Add meal" }));
 
         await waitFor(() => {
             expect(screen.getByPlaceholderText("Meal Name").value).toBe("");
@@ -106,7 +106,7 @@ describe("MealForm — successful submission", () => {
 
         await user.type(screen.getByPlaceholderText("Meal Name"), "Pizza");
         await user.selectOptions(screen.getByRole("combobox"), "Italian");
-        await user.click(screen.getByRole("button", { name: "Add Meal" }));
+        await user.click(screen.getByRole("button", { name: "Add meal" }));
 
         await waitFor(() => {
             expect(onMealCreated).toHaveBeenCalledOnce();
@@ -129,7 +129,7 @@ describe("MealForm — failed submission", () => {
 
         await user.type(screen.getByPlaceholderText("Meal Name"), "Pizza");
         await user.selectOptions(screen.getByRole("combobox"), "Italian");
-        await user.click(screen.getByRole("button", { name: "Add Meal" }));
+        await user.click(screen.getByRole("button", { name: "Add meal" }));
 
         await waitFor(() => {
             expect(screen.getByText("API request failed")).toBeInTheDocument();
@@ -146,7 +146,7 @@ describe("MealForm — failed submission", () => {
 
         await user.type(screen.getByPlaceholderText("Meal Name"), "Pizza");
         await user.selectOptions(screen.getByRole("combobox"), "Italian");
-        await user.click(screen.getByRole("button", { name: "Add Meal" }));
+        await user.click(screen.getByRole("button", { name: "Add meal" }));
 
         await waitFor(() => {
             expect(onMealCreated).not.toHaveBeenCalled();
