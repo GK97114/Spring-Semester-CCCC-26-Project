@@ -55,7 +55,7 @@ describe("MealList — rendering meals", () => {
         render(<MealList />);
 
         await waitFor(() => {
-            expect(screen.getByText("No meals found. Please add some meals!")).toBeInTheDocument();
+            expect(screen.getByText("No meals logged yet — add one above!")).toBeInTheDocument();
         });
     });
 
@@ -68,7 +68,7 @@ describe("MealList — rendering meals", () => {
         render(<MealList />);
 
         await waitFor(() => {
-            const deleteButtons = screen.getAllByRole("button", { name: "Delete" });
+            const deleteButtons = screen.getAllByRole("button", { name: "Delete Pizza" });
             expect(deleteButtons).toHaveLength(2);
         });
     });
@@ -91,7 +91,7 @@ describe("MealList — deleting meals", () => {
         const user = userEvent.setup();
 
         await waitFor(() => screen.getByText("Pizza"));
-        await user.click(screen.getByRole("button", { name: "Delete" }));
+        await user.click(screen.getByRole("button", { name: "Delete Pizza" }));
 
         expect(deleteMeal).toHaveBeenCalledWith("meal-1");
     });
@@ -107,7 +107,7 @@ describe("MealList — deleting meals", () => {
         const user = userEvent.setup();
 
         await waitFor(() => screen.getByText("Pizza"));
-        await user.click(screen.getByRole("button", { name: "Delete" }));
+        await user.click(screen.getByRole("button", { name: "Delete Pizza" }));
 
         await waitFor(() => {
             expect(screen.getByText("No meals logged yet — add one above!")).toBeInTheDocument();
@@ -125,7 +125,7 @@ describe("MealList — deleting meals", () => {
         const user = userEvent.setup();
 
         await waitFor(() => screen.getByText("Pizza"));
-        await user.click(screen.getByRole("button", { name: "Delete" }));
+        await user.click(screen.getByRole("button", { name: "Delete Pizza" }));
 
         await waitFor(() => {
             expect(screen.getByText("Failed to delete")).toBeInTheDocument();

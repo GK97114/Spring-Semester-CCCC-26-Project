@@ -22,7 +22,7 @@ describe("MealForm — rendering", () => {
     it("renders the form with meal name input, cuisine select, and submit button", () => {
         render(<MealForm />);
 
-        expect(screen.getByPlaceholderText("Meal Name")).toBeInTheDocument();
+        expect(screen.getByPlaceholderText("e.g. Chicken tikka masala")).toBeInTheDocument();
         expect(screen.getByRole("combobox")).toBeInTheDocument();
         expect(screen.getByRole("button", { name: "Add meal" })).toBeInTheDocument();
     });
@@ -38,7 +38,7 @@ describe("MealForm — rendering", () => {
     it("renders with empty fields by default", () => {
         render(<MealForm />);
 
-        expect(screen.getByPlaceholderText("Meal Name").value).toBe("");
+        expect(screen.getByPlaceholderText("e.g. Chicken tikka masala").value).toBe("");
         expect(screen.getByRole("combobox").value).toBe("");
     });
 
@@ -56,7 +56,7 @@ describe("MealForm — successful submission", () => {
 
         const user = userEvent.setup();
 
-        await user.type(screen.getByPlaceholderText("Meal Name"), "Pizza");
+        await user.type(screen.getByPlaceholderText("e.g. Chicken tikka masala"), "Pizza");
         await user.selectOptions(screen.getByRole("combobox"), "Italian");
         await user.click(screen.getByRole("button", { name: "Add meal" }));
 
@@ -70,7 +70,7 @@ describe("MealForm — successful submission", () => {
 
         const user = userEvent.setup();
 
-        await user.type(screen.getByPlaceholderText("Meal Name"), "Pizza");
+        await user.type(screen.getByPlaceholderText("e.g. Chicken tikka masala"), "Pizza");
         await user.selectOptions(screen.getByRole("combobox"), "Italian");
         await user.click(screen.getByRole("button", { name: "Add meal" }));
 
@@ -86,12 +86,12 @@ describe("MealForm — successful submission", () => {
 
         const user = userEvent.setup();
 
-        await user.type(screen.getByPlaceholderText("Meal Name"), "Pizza");
+        await user.type(screen.getByPlaceholderText("e.g. Chicken tikka masala"), "Pizza");
         await user.selectOptions(screen.getByRole("combobox"), "Italian");
         await user.click(screen.getByRole("button", { name: "Add meal" }));
 
         await waitFor(() => {
-            expect(screen.getByPlaceholderText("Meal Name").value).toBe("");
+            expect(screen.getByPlaceholderText("e.g. Chicken tikka masala").value).toBe("");
             expect(screen.getByRole("combobox").value).toBe("");
         });
     });
@@ -104,7 +104,7 @@ describe("MealForm — successful submission", () => {
 
         const user = userEvent.setup();
 
-        await user.type(screen.getByPlaceholderText("Meal Name"), "Pizza");
+        await user.type(screen.getByPlaceholderText("e.g. Chicken tikka masala"), "Pizza");
         await user.selectOptions(screen.getByRole("combobox"), "Italian");
         await user.click(screen.getByRole("button", { name: "Add meal" }));
 
@@ -127,7 +127,7 @@ describe("MealForm — failed submission", () => {
 
         const user = userEvent.setup();
 
-        await user.type(screen.getByPlaceholderText("Meal Name"), "Pizza");
+        await user.type(screen.getByPlaceholderText("e.g. Chicken tikka masala"), "Pizza");
         await user.selectOptions(screen.getByRole("combobox"), "Italian");
         await user.click(screen.getByRole("button", { name: "Add meal" }));
 
@@ -144,7 +144,7 @@ describe("MealForm — failed submission", () => {
 
         const user = userEvent.setup();
 
-        await user.type(screen.getByPlaceholderText("Meal Name"), "Pizza");
+        await user.type(screen.getByPlaceholderText("e.g. Chicken tikka masala"), "Pizza");
         await user.selectOptions(screen.getByRole("combobox"), "Italian");
         await user.click(screen.getByRole("button", { name: "Add meal" }));
 
