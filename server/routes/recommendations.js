@@ -29,11 +29,31 @@ router.get("/", requireUser, async (req, res) => {
         if (notEnoughMeals) {
             const popularResult = await pool.query(
                 `SELECT cuisine, COUNT(*) as count FROM meals
+                WHERE user_id != $1
                 GROUP BY cuisine
                 ORDER BY count DESC
-                LIMIT 3`
+                LIMIT 3`,
+                [userId]
             );
-            return res.json({ recommendations: popularResult.rows.map(row => row.cuisine) });
+
+            // If no other users exist, fall back to master list
+            if (popularResult.rows.length === 0) {
+                const { CUISINES_MASTER_LIST } = await import("../utils/cuisinesMasterList.js");
+                const fallback = Object.values(CUISINES_MASTER_LIST).slice(0, 3);
+                return res.json({
+                    recommendations: fallback.map(cuisine => ({
+                        cuisine,
+                        reason: "A popular cuisine to try!"
+                    }))
+                });
+            }
+
+            return res.json({
+                recommendations: popularResult.rows.map(row => ({
+                    cuisine: row.cuisine,
+                    reason: "Trending with other users!"
+                }))
+            });
         }
 
         // Recommend popular meals that do not include the user's current same cuisine if all meals are the same cuisine
