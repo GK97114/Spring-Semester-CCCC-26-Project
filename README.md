@@ -108,7 +108,8 @@ A meal tracking and cuisine recommendation app to help users decide what to eat 
 #### Housekeeping
 - [x] Verify no leftover `created_at` references remain in meal display context
 - [x] Verify `eaten_on` naming is consistent across all routes, components, and tests
-- [ ] Deploy and verify date picker works end-to-end in production
+- [x] Deploy and verify date picker works end-to-end in production
+- [x] Update CSS styling for date picker
 
 ---
 
