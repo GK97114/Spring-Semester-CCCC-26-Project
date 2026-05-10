@@ -32,15 +32,19 @@ function RecommendationDisplay() {
         <div className="section-card">
             <h2>What should I eat?</h2>
 
-            <button className="btn-recommend" onClick={handleGetRecommendations} disabled={loading}>
-                {loading ? "Thinking..." : "✨ Get Recommendations"}
+            <button
+                className="btn-recommend"
+                onClick={handleGetRecommendations}
+                disabled={loading}
+            >
+                {loading ? "Thinking..." : "✨ Get recommendations"}
             </button>
 
             {error && <p className="msg-error">{error}</p>}
 
             {recommendations.length > 0 && (
                 <ul className="rec-list">
-                    {recommendations.map((rec, index) => {
+                    {recommendations.map((rec, index) => (
                         <li key={index} className="rec-item">
                             <div className="rec-number">{index + 1}</div>
                             <div>
@@ -56,7 +60,7 @@ function RecommendationDisplay() {
                                 )}
                             </div>
                         </li>
-                    })}
+                    ))}
                 </ul>
             )}
         </div>
