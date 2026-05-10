@@ -34,8 +34,8 @@ describe("GET /api/meals", () => {
         // Arrange: tell the mock what the DB should return
         pool.query.mockResolvedValueOnce({
             rows: [
-                { id: "meal-1", meal_name: "Pizza", cuisine: "Italian" },
-                { id: "meal-2", meal_name: "Tacos", cuisine: "Mexican" }
+                { id: "1", meal_name: "Pizza", cuisine: "Italian", eaten_on: "2026-05-09" },
+                { id: "2", meal_name: "Tacos", cuisine: "Mexican", eaten_on: "2026-05-10" }
             ]
         });
 
@@ -85,7 +85,7 @@ describe("POST /api/meals", () => {
         const res = await request(app)
             .post("/api/meals")
             .set("Cookie", "user_id=test-user-uuid")
-            .send({ meal_name: "Pizza", cuisine: "Italian" });
+            .send({ meal_name: "Pizza", cuisine: "Italian", eaten_on: "2026-05-09" });
 
         expect(res.status).toBe(200);
         expect(res.body.meal_name).toBe("Pizza");
@@ -97,7 +97,7 @@ describe("POST /api/meals", () => {
     const res = await request(app)
         .post("/api/meals")
         .set("Cookie", "user_id=test-user-uuid")
-        .send({ meal_name: "Pizza" });
+        .send({ meal_name: "Pizza", eaten_on: "2026-05-09" });
 
     expect(res.status).toBe(400);
     expect(res.body.error).toContain("Bad Request");
@@ -107,17 +107,29 @@ describe("POST /api/meals", () => {
         const res = await request(app)
             .post("/api/meals")
             .set("Cookie", "user_id=test-user-uuid")
-            .send({ cuisine: "Italian" });
+            .send({ cuisine: "Italian", eaten_on: "2026-05-09" });
 
         expect(res.status).toBe(400);
         expect(res.body.error).toContain("Bad Request");
+    });
+
+    it("creates a meal with default date when eaten_on is not provided", async () => {
+        pool.query.mockResolvedValueOnce({ rows: [] });
+
+        const res = await request(app)
+            .post("/api/meals")
+            .set("Cookie", "user_id=test-user-uuid")
+            .send({ meal_name: "Pizza", cuisine: "Italian" });
+
+        expect(res.status).toBe(200);
+        expect(res.body.eaten_on).toBeDefined();
     });
 
     it("returns 400 when meal_name is empty string", async () => {
         const res = await request(app)
             .post("/api/meals")
             .set("Cookie", "user_id=test-user-uuid")
-            .send({ meal_name: "", cuisine: "Italian" });
+            .send({ meal_name: "", cuisine: "Italian", eaten_on: "2026-05-09" });
 
         expect(res.status).toBe(400);
         expect(res.body.error).toContain("Bad Request");
@@ -129,7 +141,7 @@ describe("POST /api/meals", () => {
         const res = await request(app)
             .post("/api/meals")
             .set("Cookie", "user_id=test-user-uuid")
-            .send({ meal_name: "Pizza", cuisine: "Italian" });
+            .send({ meal_name: "Pizza", cuisine: "Italian", eaten_on: "2026-05-09" });
 
         expect(res.status).toBe(500);
         expect(res.body.error).toBe("Error adding meal");

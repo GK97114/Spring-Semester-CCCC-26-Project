@@ -37,8 +37,8 @@ describe("MealList — rendering meals", () => {
 
     it("renders a list of meals after loading", async () => {
         getMeals.mockResolvedValueOnce([
-            { id: "1", meal_name: "Pizza", cuisine: "Italian" },
-            { id: "2", meal_name: "Tacos", cuisine: "Mexican" }
+            { id: "1", meal_name: "Pizza", cuisine: "Italian", eaten_on: "2026-05-09" },
+            { id: "2", meal_name: "Tacos", cuisine: "Mexican", eaten_on: "2026-05-10" }
         ]);
 
         render(<MealList />);
@@ -46,6 +46,18 @@ describe("MealList — rendering meals", () => {
         await waitFor(() => {
             expect(screen.getByText("Pizza")).toBeInTheDocument();
             expect(screen.getByText("Tacos")).toBeInTheDocument();
+        });
+    });
+
+    it("renders Eaten column header", async () => {
+        getMeals.mockResolvedValueOnce([
+            { id: "1", meal_name: "Pizza", cuisine: "Italian", eaten_on: "2026-05-09" }
+        ]);
+
+        render(<MealList />);
+
+        await waitFor(() => {
+            expect(screen.getByText("Eaten")).toBeInTheDocument();
         });
     });
 
@@ -61,8 +73,8 @@ describe("MealList — rendering meals", () => {
 
     it("renders a delete button for each meal", async () => {
         getMeals.mockResolvedValueOnce([
-            { id: "1", meal_name: "Pizza", cuisine: "Italian" },
-            { id: "2", meal_name: "Tacos", cuisine: "Mexican" }
+            { id: "1", meal_name: "Pizza", cuisine: "Italian", eaten_on: "2026-05-09" },
+            { id: "2", meal_name: "Tacos", cuisine: "Mexican", eaten_on: "2026-05-10" }
         ]);
 
         render(<MealList />);
@@ -82,7 +94,7 @@ describe("MealList — deleting meals", () => {
 
     it("calls deleteMeal with correct id when delete button is clicked", async () => {
         getMeals.mockResolvedValue([
-            { id: "meal-1", meal_name: "Pizza", cuisine: "Italian" }
+            { id: "meal-1", meal_name: "Pizza", cuisine: "Italian", eaten_on: "2026-05-09" }
         ]);
         deleteMeal.mockResolvedValueOnce({ success: true });
 
@@ -98,7 +110,7 @@ describe("MealList — deleting meals", () => {
 
     it("refreshes meal list after deletion", async () => {
         getMeals
-            .mockResolvedValueOnce([{ id: "meal-1", meal_name: "Pizza", cuisine: "Italian" }])
+            .mockResolvedValueOnce([{ id: "meal-1", meal_name: "Pizza", cuisine: "Italian", eaten_on: "2026-05-09" }])
             .mockResolvedValueOnce([]); // Empty after deletion
         deleteMeal.mockResolvedValueOnce({ success: true });
 
@@ -116,7 +128,7 @@ describe("MealList — deleting meals", () => {
 
     it("shows error message when deletion fails", async () => {
         getMeals.mockResolvedValueOnce([
-            { id: "meal-1", meal_name: "Pizza", cuisine: "Italian" }
+            { id: "meal-1", meal_name: "Pizza", cuisine: "Italian", eaten_on: "2026-05-09" }
         ]);
         deleteMeal.mockRejectedValueOnce(new Error("Failed to delete"));
 

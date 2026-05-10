@@ -30,9 +30,28 @@ describe("MealForm — rendering", () => {
     it("renders all cuisine options in the dropdown", () => {
         render(<MealForm />);
 
+        expect(screen.getByRole("option", { name: "American" })).toBeInTheDocument();
+        expect(screen.getByRole("option", { name: "Barbeque" })).toBeInTheDocument();
+        expect(screen.getByRole("option", { name: "Chinese" })).toBeInTheDocument();
+        expect(screen.getByRole("option", { name: "Fish" })).toBeInTheDocument();
+        expect(screen.getByRole("option", { name: "German" })).toBeInTheDocument();
+        expect(screen.getByRole("option", { name: "Indian" })).toBeInTheDocument();
         expect(screen.getByRole("option", { name: "Italian" })).toBeInTheDocument();
-        expect(screen.getByRole("option", { name: "Mexican" })).toBeInTheDocument();
         expect(screen.getByRole("option", { name: "Japanese" })).toBeInTheDocument();
+        expect(screen.getByRole("option", { name: "Mediterranean" })).toBeInTheDocument();
+        expect(screen.getByRole("option", { name: "Mexican" })).toBeInTheDocument();
+        expect(screen.getByRole("option", { name: "Other" })).toBeInTheDocument();
+        expect(screen.getByRole("option", { name: "Seafood" })).toBeInTheDocument();
+        expect(screen.getByRole("option", { name: "Tex-Mex" })).toBeInTheDocument();
+        expect(screen.getByRole("option", { name: "Thai" })).toBeInTheDocument();
+    });
+
+    it("renders date input defaulting to today", () => {
+        render(<MealForm />);
+
+        const dateInput = screen.getByLabelText("Date eaten");
+        expect(dateInput).toBeInTheDocument();
+        expect(dateInput.value).toBe(new Date().toISOString().split("T")[0]);
     });
 
     it("renders with empty fields by default", () => {
@@ -40,6 +59,9 @@ describe("MealForm — rendering", () => {
 
         expect(screen.getByPlaceholderText("e.g. Chicken tikka masala").value).toBe("");
         expect(screen.getByRole("combobox").value).toBe("");
+        expect(screen.getByLabelText("Date eaten").value).toBe(
+        new Date().toISOString().split("T")[0]
+    );
     });
 
 });
@@ -50,7 +72,7 @@ describe("MealForm — rendering", () => {
 describe("MealForm — successful submission", () => {
 
     it("calls createMeal with correct data on submit", async () => {
-        createMeal.mockResolvedValueOnce({ id: "meal-1", meal_name: "Pizza", cuisine: "Italian" });
+        createMeal.mockResolvedValueOnce({ id: "meal-1", meal_name: "Pizza", cuisine: "Italian", eaten_on: "2026-05-09" });
 
         render(<MealForm />);
 
@@ -60,11 +82,11 @@ describe("MealForm — successful submission", () => {
         await user.selectOptions(screen.getByRole("combobox"), "Italian");
         await user.click(screen.getByRole("button", { name: "Add meal" }));
 
-        expect(createMeal).toHaveBeenCalledWith({ meal_name: "Pizza", cuisine: "Italian" });
+        expect(createMeal).toHaveBeenCalledWith({ meal_name: "Pizza", cuisine: "Italian", eaten_on: expect.any(String) });
     });
 
     it("shows success message after meal is created", async () => {
-        createMeal.mockResolvedValueOnce({ id: "meal-1", meal_name: "Pizza", cuisine: "Italian" });
+        createMeal.mockResolvedValueOnce({ id: "meal-1", meal_name: "Pizza", cuisine: "Italian", eaten_on: "2026-05-09" });
 
         render(<MealForm />);
 
@@ -80,7 +102,7 @@ describe("MealForm — successful submission", () => {
     });
 
     it("clears form fields after successful submission", async () => {
-        createMeal.mockResolvedValueOnce({ id: "meal-1", meal_name: "Pizza", cuisine: "Italian" });
+        createMeal.mockResolvedValueOnce({ id: "meal-1", meal_name: "Pizza", cuisine: "Italian", eaten_on: "2026-05-09" });
 
         render(<MealForm />);
 
@@ -93,11 +115,12 @@ describe("MealForm — successful submission", () => {
         await waitFor(() => {
             expect(screen.getByPlaceholderText("e.g. Chicken tikka masala").value).toBe("");
             expect(screen.getByRole("combobox").value).toBe("");
+            expect(screen.getByLabelText("Date eaten").value).toBe(new Date().toISOString().split("T")[0]);
         });
     });
 
     it("calls onMealCreated callback after successful submission", async () => {
-        createMeal.mockResolvedValueOnce({ id: "meal-1", meal_name: "Pizza", cuisine: "Italian" });
+        createMeal.mockResolvedValueOnce({ id: "meal-1", meal_name: "Pizza", cuisine: "Italian", eaten_on: "2026-05-09" });
         const onMealCreated = vi.fn();
 
         render(<MealForm onMealCreated={onMealCreated} />);

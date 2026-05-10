@@ -12,8 +12,17 @@ function MealForm({ onMealCreated }) {
     // State variables to track the meal name, cuisine, and any error or success messages
     const [mealName, setMealName] = useState("");
     const [cuisine, setCuisine] = useState("");
+    const [eatenOn, setEatenOn] = useState("");
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
+
+    /**
+     * Get today's date in YYYY-MM-DD format for the date input default
+     * @returns todays date
+     */
+    function getToday() {
+        return new Date().toISOString().split("T")[0];
+    }
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -23,11 +32,12 @@ function MealForm({ onMealCreated }) {
             setSuccess("");
 
             // Call the API to create a new meal with the provided meal name and cuisine
-            await createMeal({ meal_name: mealName, cuisine });
+            await createMeal({ meal_name: mealName, cuisine, eaten_on: eatenOn });
 
             // Clear the form fields after successful creation
             setMealName("");
             setCuisine("");
+            setEatenOn(getToday());
 
             setSuccess("Meal added successfully!");
 
@@ -84,6 +94,18 @@ function MealForm({ onMealCreated }) {
                             <option value="Tex-Mex">Tex-Mex</option>
                             <option value="Thai">Thai</option>
                         </select>
+                    </div>
+
+                    <div className="form-field">
+                        <label htmlFor="eaten-on">Date eaten</label>
+                        <input
+                            id="eaten-on"
+                            type="date"
+                            value={eatenOn}
+                            max={today()} // ← prevents future dates
+                            onChange={(e) => setEatenOn(e.target.value)}
+                            required
+                        />
                     </div>
 
                     <button type="submit" className="btn-primary">

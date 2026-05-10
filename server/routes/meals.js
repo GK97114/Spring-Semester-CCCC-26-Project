@@ -14,8 +14,8 @@ router.get("/", requireUser, async (req, res) => {
         const result = await pool.query(
             `SELECT * FROM meals
             WHERE user_id = $1
-            and created_at > NOW() - INTERVAL '14 days'
-            ORDER BY created_at DESC`,
+            and eaten_on > NOW() - INTERVAL '14 days'
+            ORDER BY eaten_on DESC`,
             [userId]
         );
 
@@ -31,7 +31,7 @@ router.get("/", requireUser, async (req, res) => {
 router.post("/", requireUser, async (req, res) => {
     try {
         const userId = req.userId;
-        const { meal_name, cuisine } = req.body;
+        const { meal_name, cuisine, eaten_on } = req.body;
 
         // Validate required fields
         const error = validateMealInput(meal_name, cuisine);
@@ -43,12 +43,12 @@ router.post("/", requireUser, async (req, res) => {
         const mealId = uuidv4();
 
         await pool.query(
-            `INSERT INTO meals (id, user_id, meal_name, cuisine)
-            VALUES ($1, $2, $3, $4)`,
-            [mealId, userId, meal_name, cuisine || null]
+            `INSERT INTO meals (id, user_id, meal_name, cuisine, eaten_on)
+            VALUES ($1, $2, $3, $4, $5)`,
+            [mealId, userId, meal_name, cuisine, eaton_on || new Date().toISOString().split("T")[0]]
         );
 
-        res.json({ id: mealId, meal_name, cuisine });
+        res.json({ id: mealId, meal_name, cuisine, eaten_on });
 
     } catch (err) {
         console.error("Error adding meal:", err);
@@ -85,7 +85,7 @@ router.put("/:id", requireUser, async (req, res) => {
     try {
         const userId = req.userId;
         const { id } = req.params;
-        const { location, meal_name, cuisine, rating, notes } = req.body;
+        const { location, meal_name, cuisine, rating, eaten_on } = req.body;
 
         // Validate required fields
         const error = validateMealInput(meal_name, cuisine);
@@ -99,9 +99,9 @@ router.put("/:id", requireUser, async (req, res) => {
             meal_name = $2,
             cuisine = $3,
             rating = $4,
-            notes = $5
+            eaten_on = $5
             WHERE id = $6 AND user_id = $7`,
-            [location || null, meal_name, cuisine, rating || null, notes || null, id, userId]
+            [location || null, meal_name, cuisine, rating || null, eaten_on || null, id, userId]
         );
 
         if(result.rowCount === 0) {

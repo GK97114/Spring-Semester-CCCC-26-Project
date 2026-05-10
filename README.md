@@ -83,6 +83,33 @@ A meal tracking and cuisine recommendation app to help users decide what to eat 
 - [x] Add `.github/` to `.gitignore` exceptions (it must be committed)
 - [x] Update README with how to run tests locally
 
+### Phase 7: Eaten-On Date Feature (⏳ TODO)
+
+#### Database
+- [x] Run `ALTER TABLE meals ADD COLUMN eaten_on DATE DEFAULT CURRENT_DATE` in Supabase SQL editor
+- [x] Update `migrations/init.sql` — add `eaten_on DATE DEFAULT CURRENT_DATE` to meals table definition
+- [x] Remove unused `notes` column from `init.sql`
+
+#### Backend
+- [x] Update `POST /api/meals` in `routes/meals.js` — accept `eaten_on` in request body, include in INSERT
+- [x] Update `PUT /api/meals/:id` in `routes/meals.js` — replace `notes` with `eaten_on` in SET clause
+- [x] Update `GET /api/recommendations` in `routes/recommendations.js` — replace `created_at` with `eaten_on` in 14-day window query
+
+#### Frontend
+- [x] Update `MealForm.jsx` — add date picker field defaulting to today, include `eaten_on` in `createMeal` call
+- [x] Update `MealList.jsx` — change "Added" column header to "Eaten", pass `meal.eaten_on` to `formatDate`
+
+#### Tests
+- [x] Update `server/tests/meals.test.js` — add `eaten_on` to POST payloads, add test for default date fallback
+- [x] Update `server/tests/recommendations.test.js` — update mock meal data to use `eaten_on`, update notEnoughMeals tests for new fallback logic, add test for master list fallback, add test that user's own cuisines are never recommended
+- [x] Update `client/Whats4Dinner/src/tests/MealForm.test.jsx` — add date input to rendering tests, include `eaten_on` in `createMeal` call assertion
+- [x] Update `client/Whats4Dinner/src/tests/MealList.test.jsx` — update mock meal data to use `eaten_on`, update column header assertion from "Added" to "Eaten"
+
+#### Housekeeping
+- [x] Verify no leftover `created_at` references remain in meal display context
+- [x] Verify `eaten_on` naming is consistent across all routes, components, and tests
+- [ ] Deploy and verify date picker works end-to-end in production
+
 ---
 
 ## Setup Instructions

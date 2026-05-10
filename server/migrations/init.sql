@@ -13,7 +13,7 @@ CREATE TABLE meals (
     cuisine TEXT,
     rating INTEGER CHECK (rating >= 1 AND rating <= 5),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    notes TEXT
+    eaten_on DATE DEFAULT CURRENT_DATE
 );
 
 -- Stretch goal: allow users to add restaurants, and link meals to those restaurants

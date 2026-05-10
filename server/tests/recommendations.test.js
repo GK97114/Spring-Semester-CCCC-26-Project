@@ -26,7 +26,7 @@ describe("GET /api/recommendations — not enough meals", () => {
 
     it("returns popular cuisines from other users when user has fewer than 5 meals", async () => {
         pool.query.mockResolvedValueOnce({
-            rows: [{ meal_name: "Pizza", cuisine: "Italian" }]
+            rows: [{ meal_name: "Pizza", cuisine: "Italian", eaten_on: "2026-05-09" }]
         });
         pool.query.mockResolvedValueOnce({
             rows: [
@@ -48,7 +48,7 @@ describe("GET /api/recommendations — not enough meals", () => {
 
     it("returns cuisines from master list when no other users have meals", async () => {
         pool.query.mockResolvedValueOnce({
-            rows: [{ meal_name: "Pizza", cuisine: "Italian" }]
+            rows: [{ meal_name: "Pizza", cuisine: "Italian", eaten_on: "2026-05-09" }]
         });
         pool.query.mockResolvedValueOnce({ rows: [] }); // No other users
 
@@ -64,7 +64,7 @@ describe("GET /api/recommendations — not enough meals", () => {
 
     it("does not recommend cuisines the user already logged", async () => {
         pool.query.mockResolvedValueOnce({
-            rows: [{ meal_name: "Pizza", cuisine: "Italian" }]
+            rows: [{ meal_name: "Pizza", cuisine: "Italian", eaten_on: "2026-05-09" }]
         });
         pool.query.mockResolvedValueOnce({
             rows: [
@@ -234,7 +234,7 @@ describe("GET /api/recommendations — error handling", () => {
     });
 
     it("returns 500 when database throws on second query (notEnoughMeals path)", async () => {
-        pool.query.mockResolvedValueOnce({ rows: [{ meal_name: "Pizza", cuisine: "Italian" }] });
+        pool.query.mockResolvedValueOnce({ rows: [{ meal_name: "Pizza", cuisine: "Italian", eaten_on: "2026-05-09" }] });
         pool.query.mockRejectedValueOnce(new Error("DB connection failed"));
 
         const res = await request(app)

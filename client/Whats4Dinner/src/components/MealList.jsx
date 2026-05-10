@@ -66,7 +66,7 @@ function MealList() {
                         <tr>
                             <th>Meal</th>
                             <th>Cuisine</th>
-                            <th>Added</th>
+                            <th>Eaten</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -78,7 +78,7 @@ function MealList() {
                                     <span className="cuisine-badge">{meal.cuisine}</span>
                                 </td>
                                 <td className="date-text">
-                                    {meal.created_at ? formatDate(meal.created_at) : "—"}
+                                    {meal.eaten_on ? formatDate(meal.eaten_on) : "—"}
                                 </td>
                                 <td style={{ textAlign: "right" }}>
                                     <button

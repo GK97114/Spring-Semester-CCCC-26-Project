@@ -16,7 +16,7 @@ router.get("/", requireUser, async (req, res) => {
         const result = await pool.query(
             `SELECT meal_name, cuisine FROM meals
             WHERE user_id = $1
-            AND created_at >= CURRENT_DATE - INTERVAL '14 days'`,
+            AND eaten_on >= CURRENT_DATE - INTERVAL '14 days'`,
             [userId]
         );
         const recentMeals = result.rows;
