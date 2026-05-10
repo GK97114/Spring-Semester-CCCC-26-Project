@@ -24,20 +24,15 @@ beforeEach(() => {
 
 describe("GET /api/recommendations — not enough meals", () => {
 
-    it("returns popular cuisines when user has fewer than 5 meals", async () => {
-        // First query: user's recent meals (less than 5)
+    it("returns popular cuisines from other users when user has fewer than 5 meals", async () => {
         pool.query.mockResolvedValueOnce({
-            rows: [
-                { meal_name: "Pizza", cuisine: "Italian" },
-                { meal_name: "Tacos", cuisine: "Mexican" }
-            ]
+            rows: [{ meal_name: "Pizza", cuisine: "Italian" }]
         });
-        // Second query: global popular cuisines
         pool.query.mockResolvedValueOnce({
             rows: [
-                { cuisine: "Italian" },
-                { cuisine: "Mexican" },
-                { cuisine: "Japanese" }
+                { cuisine: "Thai" },
+                { cuisine: "Indian" },
+                { cuisine: "Mexican" }
             ]
         });
 
@@ -47,7 +42,44 @@ describe("GET /api/recommendations — not enough meals", () => {
 
         expect(res.status).toBe(200);
         expect(res.body.recommendations).toHaveLength(3);
-        expect(res.body.recommendations).toContain("Italian");
+        // Should have reason strings now
+        expect(res.body.recommendations[0]).toHaveProperty("reason");
+    });
+
+    it("returns cuisines from master list when no other users have meals", async () => {
+        pool.query.mockResolvedValueOnce({
+            rows: [{ meal_name: "Pizza", cuisine: "Italian" }]
+        });
+        pool.query.mockResolvedValueOnce({ rows: [] }); // No other users
+
+        const res = await request(app)
+            .get("/api/recommendations")
+            .set("Cookie", "user_id=test-user-uuid");
+
+        expect(res.status).toBe(200);
+        expect(res.body.recommendations.length).toBeGreaterThan(0);
+        expect(res.body.recommendations[0]).toHaveProperty("cuisine");
+        expect(res.body.recommendations[0]).toHaveProperty("reason");
+    });
+
+    it("does not recommend cuisines the user already logged", async () => {
+        pool.query.mockResolvedValueOnce({
+            rows: [{ meal_name: "Pizza", cuisine: "Italian" }]
+        });
+        pool.query.mockResolvedValueOnce({
+            rows: [
+                { cuisine: "Thai" },
+                { cuisine: "Indian" },
+                { cuisine: "Mexican" }
+            ]
+        });
+
+        const res = await request(app)
+            .get("/api/recommendations")
+            .set("Cookie", "user_id=test-user-uuid");
+
+        const cuisines = res.body.recommendations.map(r => r.cuisine);
+        expect(cuisines).not.toContain("Italian");
     });
 
     it("returns popular cuisines when user has zero meals", async () => {
