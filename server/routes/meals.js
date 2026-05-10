@@ -14,7 +14,7 @@ router.get("/", requireUser, async (req, res) => {
         const result = await pool.query(
             `SELECT * FROM meals
             WHERE user_id = $1
-            and eaten_on > NOW() - INTERVAL '14 days'
+            and eaten_on > CURRENT_DATE - INTERVAL '14 days'
             ORDER BY eaten_on DESC`,
             [userId]
         );
@@ -45,7 +45,7 @@ router.post("/", requireUser, async (req, res) => {
         await pool.query(
             `INSERT INTO meals (id, user_id, meal_name, cuisine, eaten_on)
             VALUES ($1, $2, $3, $4, $5)`,
-            [mealId, userId, meal_name, cuisine, eaton_on || new Date().toISOString().split("T")[0]]
+            [mealId, userId, meal_name, cuisine, eaten_on || new Date().toISOString().split("T")[0]]
         );
 
         res.json({ id: mealId, meal_name, cuisine, eaten_on });
