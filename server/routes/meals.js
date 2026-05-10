@@ -42,13 +42,15 @@ router.post("/", requireUser, async (req, res) => {
         // Generate a new UUID for the meal
         const mealId = uuidv4();
 
+        const resolvedEatenOn = eaten_on || new Date().toISOString().split("T")[0];
+
         await pool.query(
             `INSERT INTO meals (id, user_id, meal_name, cuisine, eaten_on)
             VALUES ($1, $2, $3, $4, $5)`,
-            [mealId, userId, meal_name, cuisine, eaten_on || new Date().toISOString().split("T")[0]]
+            [mealId, userId, meal_name, cuisine, resolvedEatenOn]
         );
 
-        res.json({ id: mealId, meal_name, cuisine, eaten_on });
+        res.json({ id: mealId, meal_name, cuisine, eaten_on: resolvedEatenOn });
 
     } catch (err) {
         console.error("Error adding meal:", err);
