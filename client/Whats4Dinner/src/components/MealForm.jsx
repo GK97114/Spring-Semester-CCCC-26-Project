@@ -102,7 +102,7 @@ function MealForm({ onMealCreated }) {
                             id="eaten-on"
                             type="date"
                             value={eatenOn}
-                            max={today()} // ← prevents future dates
+                            max={getToday()} // ← prevents future dates
                             onChange={(e) => setEatenOn(e.target.value)}
                             required
                         />
