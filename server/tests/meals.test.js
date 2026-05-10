@@ -93,17 +93,15 @@ describe("POST /api/meals", () => {
         expect(res.body.id).toBeDefined(); // UUID was generated
     });
 
-    it("creates a meal without cuisine (cuisine is optional)", async () => {
-        pool.query.mockResolvedValueOnce({ rows: [] });
+    it("returns 400 when cuisine is missing", async () => {
+    const res = await request(app)
+        .post("/api/meals")
+        .set("Cookie", "user_id=test-user-uuid")
+        .send({ meal_name: "Pizza" });
 
-        const res = await request(app)
-            .post("/api/meals")
-            .set("Cookie", "user_id=test-user-uuid")
-            .send({ meal_name: "Pizza" });
-
-        expect(res.status).toBe(200);
-        expect(res.body.meal_name).toBe("Pizza");
-    });
+    expect(res.status).toBe(400);
+    expect(res.body.error).toContain("Bad Request");
+});
 
     it("returns 400 when meal_name is missing", async () => {
         const res = await request(app)
