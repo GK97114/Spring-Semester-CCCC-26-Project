@@ -110,7 +110,7 @@ describe("MealList — deleting meals", () => {
         await user.click(screen.getByRole("button", { name: "Delete" }));
 
         await waitFor(() => {
-            expect(screen.getByText("No meals found. Please add some meals!")).toBeInTheDocument();
+            expect(screen.getByText("No meals logged yet — add one above!")).toBeInTheDocument();
         });
     });
 

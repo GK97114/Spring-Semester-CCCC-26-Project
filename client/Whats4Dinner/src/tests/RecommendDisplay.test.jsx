@@ -21,7 +21,7 @@ describe("RecommendationDisplay — rendering", () => {
     it("renders the get recommendations button", () => {
         render(<RecommendationDisplay />);
 
-        expect(screen.getByRole("button", { name: "Get Recommendations" })).toBeInTheDocument();
+        expect(screen.getByRole("button", { name: "✨ Get Recommendations" })).toBeInTheDocument();
     });
 
     it("renders no recommendations by default", () => {
@@ -44,7 +44,7 @@ describe("RecommendationDisplay — loading state", () => {
 
         const user = userEvent.setup();
 
-        await user.click(screen.getByRole("button", { name: "Get Recommendations" }));
+        await user.click(screen.getByRole("button", { name: "✨ Get Recommendations" }));
 
         expect(screen.getByRole("button", { name: "Thinking..." })).toBeDisabled();
     });
@@ -65,7 +65,7 @@ describe("RecommendationDisplay — string recommendations", () => {
 
         const user = userEvent.setup();
 
-        await user.click(screen.getByRole("button", { name: "Get Recommendations" }));
+        await user.click(screen.getByRole("button", { name: "✨ Get Recommendations" }));
 
         await waitFor(() => {
             expect(screen.getByText("Italian")).toBeInTheDocument();
@@ -93,7 +93,7 @@ describe("RecommendationDisplay — object recommendations", () => {
 
         const user = userEvent.setup();
 
-        await user.click(screen.getByRole("button", { name: "Get Recommendations" }));
+        await user.click(screen.getByRole("button", { name: "✨ Get Recommendations" }));
 
         await waitFor(() => {
             expect(screen.getByText(/Italian/)).toBeInTheDocument();
@@ -111,7 +111,7 @@ describe("RecommendationDisplay — object recommendations", () => {
 
         const user = userEvent.setup();
 
-        await user.click(screen.getByRole("button", { name: "Get Recommendations" }));
+        await user.click(screen.getByRole("button", { name: "✨ Get Recommendations" }));
 
         await waitFor(() => {
             expect(screen.getByText("Italian")).toBeInTheDocument();
@@ -132,7 +132,7 @@ describe("RecommendationDisplay — error handling", () => {
 
         const user = userEvent.setup();
 
-        await user.click(screen.getByRole("button", { name: "Get Recommendations" }));
+        await user.click(screen.getByRole("button", { name: "✨ Get Recommendations" }));
 
         await waitFor(() => {
             expect(screen.getByText("Failed to fetch recommendations")).toBeInTheDocument();
@@ -146,10 +146,10 @@ describe("RecommendationDisplay — error handling", () => {
 
         const user = userEvent.setup();
 
-        await user.click(screen.getByRole("button", { name: "Get Recommendations" }));
+        await user.click(screen.getByRole("button", { name: "✨ Get Recommendations" }));
 
         await waitFor(() => {
-            expect(screen.getByRole("button", { name: "Get Recommendations" })).not.toBeDisabled();
+            expect(screen.getByRole("button", { name: "✨ Get Recommendations" })).not.toBeDisabled();
         });
     });
 
