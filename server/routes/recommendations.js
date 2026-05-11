@@ -101,7 +101,7 @@ router.get("/", requireUser, async (req, res) => {
         // Weight cuisines based on frequency
         // More frequent cuisines get lower weight, less frequent cuisines get higher weight to encourage variety
         // Cuisine not in user's history gets highest weight to encourage trying new cuisines
-        const maxCount = Math.max(...Object.values(validCuisineCounts));
+        const maxCount = Object.values(validCuisineCounts).length > 0 ? Math.max(...Object.values(validCuisineCounts)) : 0;
 
         const weightedCuisines = Object.entries(validCuisineCounts).map(([cuisine, count]) => ({
             cuisine,
