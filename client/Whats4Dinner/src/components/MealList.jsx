@@ -11,7 +11,7 @@ function MealList() {
     const [meals, setMeals] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
-    const [editingID, setEditingId] = useState(null);
+    const [editingId, setEditingId] = useState(null);
     const [editForm, setEditForm] = useState({});
 
     /**
