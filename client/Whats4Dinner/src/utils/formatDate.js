@@ -4,13 +4,17 @@
  * @returns a formatted date
  */
 export function formatDate(dateString) {
-    const date = new Date(dateString);
+    // Split manually to avoid UTC interpretation
+    const [year, month, day] = dateString.split("-").map(Number);
+    const date = new Date(year, month - 1, day); // ← local time, not UTC
+    
     const now = new Date();
-    const diffMs = now - date;
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const diffMs = today - date;
     const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
     if (diffDays === 0) return "Today";
     if (diffDays === 1) return "Yesterday";
     if (diffDays < 7) return `${diffDays} days ago`;
-    return date.toLocaleDateString(undefined, { month: "short", day: "numeric"});
+    return date.toLocaleDateString(undefined, { month: "short", day: "numeric" });
 }
