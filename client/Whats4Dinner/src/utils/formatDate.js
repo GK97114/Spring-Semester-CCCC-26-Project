@@ -4,10 +4,11 @@
  * @returns a formatted date
  */
 export function formatDate(dateString) {
-    // Split manually to avoid UTC interpretation
-    const [year, month, day] = dateString.split("-").map(Number);
-    const date = new Date(year, month - 1, day); // ← local time, not UTC
-    
+    // Handle both "YYYY-MM-DD" and full ISO timestamp "YYYY-MM-DDT..."
+    const datePart = dateString.split("T")[0];
+    const [year, month, day] = datePart.split("-").map(Number);
+    const date = new Date(year, month - 1, day);
+
     const now = new Date();
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     const diffMs = today - date;
