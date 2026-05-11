@@ -83,7 +83,7 @@ A meal tracking and cuisine recommendation app to help users decide what to eat 
 - [x] Add `.github/` to `.gitignore` exceptions (it must be committed)
 - [x] Update README with how to run tests locally
 
-### Phase 7: Eaten-On Date Feature (⏳ TODO)
+### Phase 7: Eaten-On Date Feature ✅ COMPLETE
 
 #### Database
 - [x] Run `ALTER TABLE meals ADD COLUMN eaten_on DATE DEFAULT CURRENT_DATE` in Supabase SQL editor
@@ -110,6 +110,12 @@ A meal tracking and cuisine recommendation app to help users decide what to eat 
 - [x] Verify `eaten_on` naming is consistent across all routes, components, and tests
 - [x] Deploy and verify date picker works end-to-end in production
 - [x] Update CSS styling for date picker
+
+### Phase 8: Emergency Patch For Edit Mode ✅ COMPLETE
+- [x] Add missing API endpoint for UpdateMeal action for `PUT /api/meals`
+- [x] Update `MealList.jsx` to import the new endpoint, and update the HTML to include edit mode
+- [x] Update `App.css` to handle table sorting during edit mode
+- [x] Update `MealList.test.jsx` to have a new edit suite for testig new edit mode
 
 ---
 

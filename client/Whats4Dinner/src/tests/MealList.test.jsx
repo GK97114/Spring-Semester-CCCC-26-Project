@@ -5,10 +5,11 @@ import MealList from "../components/MealList";
 
 vi.mock("../services/api", () => ({
     getMeals: vi.fn(),
-    deleteMeal: vi.fn()
+    deleteMeal: vi.fn(),
+    updateMeal: vi.fn()
 }));
 
-import { getMeals, deleteMeal } from "../services/api";
+import { getMeals, deleteMeal, updateMeal } from "../services/api";
 
 beforeEach(() => {
     vi.clearAllMocks();
@@ -146,6 +147,129 @@ describe("MealList — deleting meals", () => {
 
 });
 
+// ─── EDITING MEALS ────────────────────────────────────────────────────────────
+
+describe("MealList — editing meals", () => {
+
+    it("renders an edit button for each meal", async () => {
+        getMeals.mockResolvedValueOnce([
+            { id: "1", meal_name: "Pizza", cuisine: "Italian", eaten_on: "2026-05-08" },
+            { id: "2", meal_name: "Tacos", cuisine: "Mexican", eaten_on: "2026-05-08" }
+        ]);
+
+        render(<MealList />);
+
+        await waitFor(() => {
+            const editButtons = screen.getAllByRole("button", { name: /^Edit/ });
+            expect(editButtons).toHaveLength(2);
+        });
+    });
+
+    it("shows editable fields when edit button is clicked", async () => {
+        getMeals.mockResolvedValueOnce([
+            { id: "meal-1", meal_name: "Pizza", cuisine: "Italian", eaten_on: "2026-05-08" }
+        ]);
+        const user = userEvent.setup();
+
+        render(<MealList />);
+
+        await waitFor(() => screen.getByText("Pizza"));
+        await user.click(screen.getByRole("button", { name: "Edit Pizza" }));
+
+        expect(screen.getByDisplayValue("Pizza")).toBeInTheDocument();
+        expect(screen.getByDisplayValue("Italian")).toBeInTheDocument();
+        expect(screen.getByDisplayValue("2026-05-08")).toBeInTheDocument();
+    });
+
+    it("shows save and cancel buttons when editing", async () => {
+        getMeals.mockResolvedValueOnce([
+            { id: "meal-1", meal_name: "Pizza", cuisine: "Italian", eaten_on: "2026-05-08" }
+        ]);
+        const user = userEvent.setup();
+
+        render(<MealList />);
+
+        await waitFor(() => screen.getByText("Pizza"));
+        await user.click(screen.getByRole("button", { name: "Edit Pizza" }));
+
+        expect(screen.getByRole("button", { name: "Save Pizza" })).toBeInTheDocument();
+        expect(screen.getByRole("button", { name: "Cancel edit" })).toBeInTheDocument();
+    });
+
+    it("calls updateMeal with correct data on save", async () => {
+        getMeals.mockResolvedValue([
+            { id: "meal-1", meal_name: "Pizza", cuisine: "Italian", eaten_on: "2026-05-08" }
+        ]);
+        updateMeal.mockResolvedValueOnce({ success: true });
+        const user = userEvent.setup();
+
+        render(<MealList />);
+
+        await waitFor(() => screen.getByText("Pizza"));
+        await user.click(screen.getByRole("button", { name: "Edit Pizza" }));
+        await user.click(screen.getByRole("button", { name: "Save Pizza" }));
+
+        expect(updateMeal).toHaveBeenCalledWith("meal-1", {
+            meal_name: "Pizza",
+            cuisine: "Italian",
+            eaten_on: "2026-05-08"
+        });
+    });
+
+    it("exits edit mode and refreshes list after save", async () => {
+        getMeals.mockResolvedValue([
+            { id: "meal-1", meal_name: "Pizza", cuisine: "Italian", eaten_on: "2026-05-08" }
+        ]);
+        updateMeal.mockResolvedValueOnce({ success: true });
+        const user = userEvent.setup();
+
+        render(<MealList />);
+
+        await waitFor(() => screen.getByText("Pizza"));
+        await user.click(screen.getByRole("button", { name: "Edit Pizza" }));
+        await user.click(screen.getByRole("button", { name: "Save Pizza" }));
+
+        await waitFor(() => {
+            expect(screen.queryByRole("button", { name: "Save Pizza" })).not.toBeInTheDocument();
+            expect(screen.getByRole("button", { name: "Edit Pizza" })).toBeInTheDocument();
+        });
+    });
+
+    it("cancels edit and restores original row", async () => {
+        getMeals.mockResolvedValueOnce([
+            { id: "meal-1", meal_name: "Pizza", cuisine: "Italian", eaten_on: "2026-05-08" }
+        ]);
+        const user = userEvent.setup();
+
+        render(<MealList />);
+
+        await waitFor(() => screen.getByText("Pizza"));
+        await user.click(screen.getByRole("button", { name: "Edit Pizza" }));
+        await user.click(screen.getByRole("button", { name: "Cancel edit" }));
+
+        expect(screen.getByText("Pizza")).toBeInTheDocument();
+        expect(screen.queryByDisplayValue("Pizza")).not.toBeInTheDocument();
+    });
+
+    it("shows error when updateMeal fails", async () => {
+        getMeals.mockResolvedValueOnce([
+            { id: "meal-1", meal_name: "Pizza", cuisine: "Italian", eaten_on: "2026-05-08" }
+        ]);
+        updateMeal.mockRejectedValueOnce(new Error("Failed to update"));
+        const user = userEvent.setup();
+
+        render(<MealList />);
+
+        await waitFor(() => screen.getByText("Pizza"));
+        await user.click(screen.getByRole("button", { name: "Edit Pizza" }));
+        await user.click(screen.getByRole("button", { name: "Save Pizza" }));
+
+        await waitFor(() => {
+            expect(screen.getByText("Failed to update")).toBeInTheDocument();
+        });
+    });
+
+});
 
 // ─── ERROR HANDLING ───────────────────────────────────────────────────────────
 

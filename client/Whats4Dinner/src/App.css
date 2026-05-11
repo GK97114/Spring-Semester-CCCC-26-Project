@@ -314,6 +314,13 @@ button {
   border-bottom: none;
 }
 
+.meals-table td:last-child {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    align-items: center;
+}
+
 .meal-name {
   font-weight: 500;
   color: var(--text);

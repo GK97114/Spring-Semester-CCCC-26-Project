@@ -82,6 +82,20 @@ export async function deleteMeal(mealId) {
 }
 
 /**
+ * Sends a request to update a meal
+ * @param {string} mealId is the ID of the meal to be edited
+ * @param {JSON} mealData is the JSON of the updated meal data
+ * @returns the updated meal data
+ * @throws an error if the request fails
+ */
+export async function updateMeal(mealId, mealData) {
+    return request(`/meals/${mealId}`, {
+        method: "PUT",
+        body: JSON.stringify(mealData),
+    });
+}
+
+/**
  * Fetches recommended meals based on a list of meal IDs.
  * @param {string[]} mealIds is an array of meal IDs for which to fetch recommendations
  * @returns the list of recommended meals if successful
