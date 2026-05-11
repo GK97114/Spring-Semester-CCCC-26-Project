@@ -73,7 +73,7 @@ router.get("/", requireUser, async (req, res) => {
         // count cuisine types
         const cuisineCounts = {};
         recentMeals.forEach((meal) => {
-            const cuisine = (meal.cuisine || "other").toLowerCase();
+            const cuisine = (meal.cuisine || "other").toLowerCase().trim();
             cuisineCounts[cuisine] = (cuisineCounts[cuisine] || 0) + 1;
         });
 
