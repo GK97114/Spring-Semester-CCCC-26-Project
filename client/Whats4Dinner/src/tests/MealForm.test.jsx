@@ -2,6 +2,7 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import MealForm from "../components/MealForm";
+import { getToday } from "../utils/getToday";
 
 // Mock the api module so no real fetch calls happen
 vi.mock("../services/api", () => ({
@@ -51,7 +52,7 @@ describe("MealForm — rendering", () => {
 
         const dateInput = screen.getByLabelText("Date eaten");
         expect(dateInput).toBeInTheDocument();
-        expect(dateInput.value).toBe(new Date().toISOString().split("T")[0]);
+        expect(dateInput.value).toBe(getToday());
     });
 
     it("renders with empty fields by default", () => {
@@ -59,9 +60,7 @@ describe("MealForm — rendering", () => {
 
         expect(screen.getByPlaceholderText("e.g. Chicken tikka masala").value).toBe("");
         expect(screen.getByRole("combobox").value).toBe("");
-        expect(screen.getByLabelText("Date eaten").value).toBe(
-        new Date().toISOString().split("T")[0]
-    );
+        expect(screen.getByLabelText("Date eaten").value).toBe(getToday());
     });
 
 });
@@ -115,7 +114,7 @@ describe("MealForm — successful submission", () => {
         await waitFor(() => {
             expect(screen.getByPlaceholderText("e.g. Chicken tikka masala").value).toBe("");
             expect(screen.getByRole("combobox").value).toBe("");
-            expect(screen.getByLabelText("Date eaten").value).toBe(new Date().toISOString().split("T")[0]);
+            expect(screen.getByLabelText("Date eaten").value).toBe(getToday());
         });
     });
 
