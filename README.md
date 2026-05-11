@@ -116,6 +116,7 @@ A meal tracking and cuisine recommendation app to help users decide what to eat 
 - [x] Update `MealList.jsx` to import the new endpoint, and update the HTML to include edit mode
 - [x] Update `App.css` to handle table sorting during edit mode
 - [x] Update `MealList.test.jsx` to have a new edit suite for testig new edit mode
+- [x] Create new `getToday.js` utility function to handle UTC offset problems and import in frontend components
 
 ---
 

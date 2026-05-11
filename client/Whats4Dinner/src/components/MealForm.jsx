@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createMeal } from "../services/api";
+import { getToday } from "../utils/getToday";
 
 /***
  * A component for creating a new meal.
@@ -15,14 +16,6 @@ function MealForm({ onMealCreated }) {
     const [eatenOn, setEatenOn] = useState(() => new Date().toISOString().split("T")[0]);
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
-
-    /**
-     * Get today's date in YYYY-MM-DD format for the date input default
-     * @returns todays date
-     */
-    function getToday() {
-        return new Date().toISOString().split("T")[0];
-    }
 
     async function handleSubmit(e) {
         e.preventDefault();

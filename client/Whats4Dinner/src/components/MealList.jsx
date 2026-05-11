@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { getMeals, deleteMeal, updateMeal } from "../services/api";
 import { formatDate } from "../utils/formatDate";
+import { getToday } from "../utils/getToday";
 
 /**
  * A component for displaying a list of meals.
@@ -147,7 +148,7 @@ function MealList() {
                                         <input
                                             type="date"
                                             value={editForm.eaten_on}
-                                            max={new Date().toISOString().split("T")[0]}
+                                            max={getToday()}
                                             onChange={(e) => setEditForm({ ...editForm, eaten_on: e.target.value })}
                                         />
                                     </td>
