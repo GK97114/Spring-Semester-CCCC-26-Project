@@ -79,11 +79,11 @@ router.get("/", requireUser, async (req, res) => {
 
         // Check against imported master list of cuisines and handle unknown cuisines
         const validCuisineCounts = {};
-        const VALID_CUISINES = Object.values(CUISINES_MASTER_LIST).map(cuisine => cuisine.toLowerCase());
+        const VALID_CUISINES_SET = new Set(Object.values(CUISINES_MASTER_LIST).map(c => c.toLowerCase()));
 
         for (const cuisine in cuisineCounts) {
             // If cuisine is in master list, keep it. Otherwise, categorize it as "other"
-            if (VALID_CUISINES.includes(cuisine)) {
+            if (VALID_CUISINES_SET.has(cuisine)) {
                 validCuisineCounts[cuisine] = cuisineCounts[cuisine];
             } else {
                 validCuisineCounts["other"] = (validCuisineCounts["other"] || 0) + cuisineCounts[cuisine];
