@@ -37,5 +37,5 @@ CREATE TABLE favorite_restaurants (
 CREATE INDEX IF NOT EXISTS meals_user_id_idx ON public.meals(user_id);
 
 -- Indexes to optimize queries that filter meals by created_at and user_id + created_at, which are common patterns for fetching recent meals for a user
-CREATE INDEX IF NOT EXISTS meals_created_at_idx ON public.meals(created_at);
-CREATE INDEX IF NOT EXISTS meals_user_created_idx ON public.meals(user_id, created_at);
+CREATE INDEX IF NOT EXISTS meals_eaten_on_idx ON public.meals(eaten_on);
+CREATE INDEX IF NOT EXISTS meals_user_ate_idx ON public.meals(user_id, eaten_on);
