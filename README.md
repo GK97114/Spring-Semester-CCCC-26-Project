@@ -29,6 +29,16 @@ What's For Dinner? - Spring 2026 Project/
 │           │   └── RecommendDisplay.jsx
 │           ├── services/
 │           │   └── api.js
+│           ├── tests/
+│           │   ├── formatDate.test.js
+│           │   ├── getToday.test.js
+│           │   ├── MealForm.test.jsx
+│           │   ├── MealList.test.jsx
+│           │   ├── RecommendDisplay.test.jsx
+│           │   └── setup.js
+│           ├── utils/
+│           │   ├── formatDate.js
+│           │   └── getToday.js
 │           └── assets/
 │
 └── server/
@@ -42,6 +52,10 @@ What's For Dinner? - Spring 2026 Project/
     │   ├── meals.js
     │   ├── recommendations.js
     │   └── users.js
+    ├── tests/
+    │   ├── meals.test.js
+    │   ├── recommendations.test.js
+    │   └── users.test.js
     ├── utils/
     │   ├── cuisinesMasterList.js
     │   └── validMealsInput.js
