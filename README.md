@@ -2,6 +2,55 @@
 
 A meal tracking and cuisine recommendation app to help users decide what to eat by analyzing their recent meals and suggesting cuisines they haven't eaten recently.
 
+## Project File format
+
+```
+What's For Dinner? - Spring 2026 Project/
+├── README.md
+├── WhatsForDinnerPRD.md
+├── render.yaml
+│
+├── client/
+│   └── Whats4Dinner/
+│       ├── package.json
+│       ├── package-lock.json
+│       ├── index.html
+│       ├── vite.config.js
+│       ├── eslint.config.js
+│       ├── public/
+│       └── src/
+│           ├── main.jsx
+│           ├── App.jsx
+│           ├── App.css
+│           ├── index.css
+│           ├── components/
+│           │   ├── MealForm.jsx
+│           │   ├── MealList.jsx
+│           │   └── RecommendDisplay.jsx
+│           ├── services/
+│           │   └── api.js
+│           └── assets/
+│
+└── server/
+    ├── package.json
+    ├── package-lock.json
+    ├── index.js
+    ├── db.js
+    ├── middleware/
+    │   └── auth.js
+    ├── routes/
+    │   ├── meals.js
+    │   ├── recommendations.js
+    │   └── users.js
+    ├── utils/
+    │   ├── cuisinesMasterList.js
+    │   └── validMealsInput.js
+    ├── scripts/
+    │   └── init-db.js
+    └── migrations/
+        └── init.sql
+```
+
 ## Project Status
 
 ### Phase 1: Fix Critical Frontend Bugs ✅ COMPLETE
